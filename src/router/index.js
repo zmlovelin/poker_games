@@ -10,19 +10,31 @@ export default new Router({
   routes: [
       {
           path: '/',
-          redirect: "/login"
+          redirect: "/login",
+          meta: {
+              title: '微信授权'
+          },
       },
     {
       path: '/login',
       component: Login,
+        meta: {
+            title: '微信授权'
+        },
     },
     {
       path: '/home',
-      component: home
+      component: home,
+        meta: {
+            title: '大吃小互娱世界'
+        },
     },
     {
       path: '/game',
-      component: game
+      component: game,
+        meta: {
+            title: '游戏中心'
+        },
     }
   ]
 })

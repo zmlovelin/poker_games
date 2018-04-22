@@ -1,0 +1,4 @@
+.pg-home {
+    padding:2%;
+    background red;
+}

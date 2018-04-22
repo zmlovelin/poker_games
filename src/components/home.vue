@@ -1,5 +1,7 @@
 <template>
+    <div class="pg-home">
 
+    </div>
 </template>
     <div>
         this is home

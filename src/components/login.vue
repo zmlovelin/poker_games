@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="login()">
    {{msg}}
   </div>
 </template>
@@ -10,7 +10,12 @@
       return {
         msg: '授权'
       }
-    }
+    },
+      methods:{
+        login() {
+            this.$router.push('/home')
+        }
+      }
 }
 </script>
 <style lang="stylus" scoped>
