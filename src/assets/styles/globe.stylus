@@ -1,0 +1,146 @@
+
+
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+font,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+dd,
+dl,
+dt,
+li,
+ol,
+ul,
+fieldset,
+form,
+label,
+legend {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    box-sizing border-box;
+}
+img {
+    border: none;
+}
+p {
+    margin-bottom: 0;
+}
+body,
+a,
+input,
+button {
+    font-family: "Microsoft Yahei", "Droid Sans Fallback", "Arial", "Helvetica", "sans-serif", "宋体";
+    outline: none;
+    color: #000;
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    color: #428bca;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+table {
+    text-align: center;
+    vertical-align: middle;
+}
+
+th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+html,body{
+    height: 100%;
+    font-family: "MicroSoft YaHei","sans-serif","Helvetica";/*是设备默认的字体*/
+}
+em, i {
+    font-style: normal;
+}
+
+ul,ol{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    color: #333;
+}
+a:hover{
+    color: #333;
+}
+
+input,img,button,textarea{
+    border: none;
+    outline: none;
+    resize: none;
+    /*  -webkit-appearance: none; */
+}
+
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+
+/* 清除浮动 */
+.clearfix::after,
+.clearfix::before{
+    content: ".";
+    line-height: 0;
+    height: 0;
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+
