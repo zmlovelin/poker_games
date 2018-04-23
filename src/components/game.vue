@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="game-wrap">
         this is game
     </div>
 </template>

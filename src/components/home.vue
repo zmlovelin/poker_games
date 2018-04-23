@@ -1,6 +1,6 @@
 <template>
     <div class="pg-home">
-
+        <button @click="handleClick">game</button>
     </div>
 </template>
     <div>
@@ -8,7 +8,12 @@
     </div>
 <script>
     export default {
-        name: "home"
+        name: "home",
+        methods: {
+            handleClick() {
+                this.$router.push('/game')
+            }
+        }
     }
 </script>
 
