@@ -144,4 +144,8 @@ input,img,button,textarea{
 }
 
 
-
+.overflows {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
