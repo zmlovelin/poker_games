@@ -18,8 +18,9 @@
                 房卡充值
             </div>
         </div>
-    <div class="pg-home">
-        <button @click="handleClick">game</button>
+        <div class="pg-home">
+            <button @click="handleClick">game</button>
+        </div>
     </div>
 </template>
 
