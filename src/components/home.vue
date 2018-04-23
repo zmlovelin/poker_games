@@ -18,12 +18,20 @@
                 房卡充值
             </div>
         </div>
+    <div class="pg-home">
+        <button @click="handleClick">game</button>
     </div>
 </template>
 
 <script>
     export default {
 
+        name: "home",
+        methods: {
+            handleClick() {
+                this.$router.push('/game')
+            }
+        }
     }
 </script>
 

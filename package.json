@@ -15,6 +15,7 @@
   "dependencies": {
     "less": "^3.0.2",
     "less-loader": "^4.1.0",
+    "animejs": "^2.2.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vue-wechat-title": "^2.0.4"
