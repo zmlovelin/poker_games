@@ -10,44 +10,37 @@
         data() {
             return {
                 px: 0,
-                py: 0
+                py: 0,
+                isShow: false
             }
         },
         created() {
-            let pxs = [], pys = [];
-            for (let i = 0; i < 13; i++) {
-                pxs.push(-1 - i * 30);
-            }
-            for (let i = 0; i < 4; i++) {
-                pys.push(-1 - i * 45);
-            }
-            setInterval(() => {
-                this.px = pxs[Math.floor(Math.random() * 13)];
-                this.py = pys[Math.floor(Math.random() * 4)];
-            }, 1000);
+
         },
         props: {
             position: {
                 type: Object
+            },
+            value: {
+                type: Number
             }
         },
         computed: {
             wrapStyle() {
-                let position = {};
-                if (this.position.left) {
-                    position.left = this.position.left + 'px';
+                let px = -1 - Math.floor(this.value / 4) * 30,
+                    py = -1 - this.value % 4 * 45,
+                    position;
+                if (this.isShow) {
+                    position = {
+                        backgroundPositionX: px + 'px',
+                        backgroundPositionY: py + 'px'
+                    }
+                } else {
+                    position = {
+                        backgroundPositionX: '-61px',
+                        backgroundPositionY: '-181px'
+                    }
                 }
-                if (this.position.right) {
-                    position.right = this.position.right + 'px';
-                    position.left = null;
-                }
-                position.top = this.position.top + 'px';
-                if (this.position.bottom) {
-                    position.bottom = this.position.bottom + 'px';
-                    position.top = null;
-                }
-                position.backgroundPositionX = this.px + 'px';
-                position.backgroundPositionY = this.py + 'px';
                 return position;
             }
         }
@@ -56,7 +49,11 @@
 
 <style lang="stylus" scoped>
     .poke-wrap {
-        position fixed
+        position absolute
+        left 50%
+        top 50%
+        margin-left -15px
+        margin-top -25px
         overflow hidden
         border-radius 3px
         border 1px solid antiquewhite
@@ -64,7 +61,7 @@
         height 45px
         background url("../assets/pokes.jpeg")
         background-size 390px 225px
-        background-position-x -1px
-        background-position-y -1px
+        background-position-x -61px
+        background-position-y -181px
     }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="user-wrap" :style="wrapStyle">
-        <img class="user-ib" src="../assets/user.jpeg" width="50" height="50" alt="">
+        <img class="user-ib" src="../assets/user.jpeg" width="45" height="45" alt="">
         <span class="user-ib">
             name111
         </span>
@@ -41,9 +41,9 @@
 
 <style lang="stylus" scoped>
 .user-wrap {
-    width 50px
+    width 45px
     overflow hidden
-    position fixed
+    position absolute
     .user-ib {
         display block
         font-size 12px
