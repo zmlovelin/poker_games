@@ -5,6 +5,7 @@
         <div v-for="(user, uin) in users">
             <pk-poke v-for="(poke, index) in user.pokes"
                      ref="poke"
+                     :key="uin + index"
                      :id="'id' + uin + index"
                      :value="poke.value"></pk-poke>
         </div>
