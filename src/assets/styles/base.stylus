@@ -1,0 +1,42 @@
+//750的设计稿
+// width 30px === 30/100*2 ;
+// size 14px === 14/100*2;
+
+-re(width) {
+    xs = 100px / (750px / width);
+    @media (max-width: (width + 2px)) {
+        html {
+            font-size: xs;
+        }
+    }
+}
+//px 转成rem
+-pxToRem(px) {
+    return px / 100 * 2 rem;
+}
+
+body{min-width: 300px;}
+-re(1440px);
+-re(1280px);
+-re(1024px);
+-re(960px);
+-re(950px);
+-re(900px);
+-re(800px);
+-re(773px);
+-re(768px);
+-re(736px);
+-re(732px);
+-re(731px);
+-re(667px);
+-re(640px);
+-re(600px);
+-re(568px);
+-re(533px);
+-re(435px);
+-re(414px);
+-re(411px);
+-re(384px);
+-re(375px);
+-re(360px);
+-re(320px);

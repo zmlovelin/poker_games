@@ -10,8 +10,7 @@ export default {
 }
 </script>
 
-<style lang="less">
-    @import "assets/styles/base";
+<style>
     #app {
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         /*text-align: center;*/

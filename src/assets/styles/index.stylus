@@ -1,4 +1,7 @@
+
+@import "base.stylus"
 @import "globe.stylus"
 @import "login.stylus"
 @import "home.stylus"
 @import "game.stylus"
+
