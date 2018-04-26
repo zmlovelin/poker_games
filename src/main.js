@@ -5,8 +5,12 @@ import App from './App';
 import router from './router';
 import './assets/styles/index.stylus';
 import VueWechatTitle from 'vue-wechat-title';
-Vue.use(VueWechatTitle)
-Vue.config.productionTip = false
+import service from './core/service'
+
+
+Vue.use(VueWechatTitle);
+Vue.use(service);
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({

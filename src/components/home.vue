@@ -1,7 +1,7 @@
 <template>
     <div class="pg-home-header clearfix">
         <div class="header-left fl">
-            <div class="header-pic fl">
+            <div class="header-pic fl" @click="handleClick">
                 <img src="../assets/images/logo.png" class= "pic-auto" alt="">
             </div>
             <div style="overflow: hidden;padding-left: .2rem;height: 100%;position: relative">

@@ -32,36 +32,44 @@
                     position;
                 if (this.isShow) {
                     position = {
-                        backgroundPositionX: px + 'px',
-                        backgroundPositionY: py + 'px'
+                        backgroundPositionX: this.px2rem(px),
+                        backgroundPositionY: this.px2rem(py)
                     }
                 } else {
                     position = {
-                        backgroundPositionX: '-61px',
-                        backgroundPositionY: '-181px'
+                        backgroundPositionX: this.px2rem(-61),
+                        backgroundPositionY: this.px2rem(-181),
                     }
                 }
                 return position;
+            }
+        },
+        methods: {
+            px2rem(px) {
+                return px / 100 * 2 + 'rem';
             }
         }
     }
 </script>
 
 <style lang="stylus" scoped>
+    -px2rem(px) {
+        return px / 100 * 2 rem;
+    }
     .poke-wrap {
         position absolute
         left 50%
         top 50%
-        margin-left -15px
-        margin-top -25px
+        margin-left -px2rem(-25)
+        margin-top -px2rem(-25)
         overflow hidden
-        border-radius 3px
+        border-radius -px2rem(3)
         border 1px solid antiquewhite
-        width 30px
-        height 45px
+        width -px2rem(30)
+        height -px2rem(45)
         background url("../assets/pokes.jpeg")
-        background-size 390px 225px
-        background-position-x -61px
-        background-position-y -181px
+        background-size -px2rem(390) -px2rem(225)
+        background-position-x -px2rem(-61)
+        background-position-y -px2rem(-181)
     }
 </style>

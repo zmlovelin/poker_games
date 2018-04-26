@@ -2,16 +2,22 @@
     <div class="game-wrap">
         <pk-user v-for="(user, index) in users" :key="index" :position="{left: user.left, top: user.top, right: user.right}"></pk-user>
 
-        <div v-for="(user, uin) in users">
+        <template v-for="(user, uin) in users">
             <pk-poke v-for="(poke, index) in user.pokes"
                      ref="poke"
-                     :key="uin + index"
+                     :key="'key' + uin + index"
                      :id="'id' + uin + index"
-                     :value="poke.value"></pk-poke>
-        </div>
+                     :value="poke.value">
+
+            </pk-poke>
+        </template>
 
         <button @click="fp">发牌</button>
         <button @click="show">翻牌</button>
+
+        <div class="game-footer">
+
+        </div>
     </div>
 </template>
 
@@ -29,6 +35,7 @@
             return {
                 pokes: null,
                 users: [],
+                loginUser: null,
                 timeline: null
             }
         },
@@ -38,7 +45,7 @@
             for (let i = 0; i < 42; i ++) {
                 values.push(i + 1);
             }
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < 8; i++) {
                 let user = {
                     name: `name${i}`,
                     pokes: [],
@@ -67,7 +74,11 @@
                 users.push(user);
             }
             this.users = users;
-            console.log(this.users);
+
+            this.$userService.getLoginUser('guanyj', '123').then(result => {
+                this.loginUser = result.data;
+                console.log(this.loginUser);
+            })
         },
         methods: {
             fp() {
@@ -82,7 +93,7 @@
                         user.pokes.forEach((poke, j) => {
                             let config = {
                                 targets: `#id${i}${j}`,
-                                top: poke.top,
+                                top: this.px2rem(poke.top),
                                 marginLeft: 0,
                                 marginTop: 0,
                             }
@@ -96,9 +107,9 @@
                                 }
                             }
                             if (poke.left) {
-                                config.left = poke.left;
+                                config.left = this.px2rem(poke.left);
                             } else {
-                                config.right = poke.right;
+                                config.right = this.px2rem(poke.right);
                             }
                             this.timeline.add(config);
                         });
@@ -107,14 +118,16 @@
             },
             show() {
                 this.$refs.poke.forEach(item => {
-                    console.log(item);
                     item.isShow = !item.isShow;
                 })
+            },
+            px2rem(px) {
+                return px / 100 * 2 + 'rem';
             }
         }
     }
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
 
 </style>

@@ -1,10 +1,10 @@
 <template>
     <div class="user-wrap" :style="wrapStyle">
         <img class="user-ib" src="../assets/user.jpeg" width="45" height="45" alt="">
-        <span class="user-ib">
+        <span class="user-ib user-text">
             name111
         </span>
-        <em class="user-ib">200</em>
+        <em class="user-ib user-text">200</em>
     </div>
 </template>
 
@@ -40,13 +40,22 @@
 </script>
 
 <style lang="stylus" scoped>
+-px2rem(px) {
+    return px / 100 * 2 rem;
+}
+
 .user-wrap {
-    width 45px
+    width  -px2rem(45)
     overflow hidden
     position absolute
     .user-ib {
         display block
-        font-size 12px
+        font-size -px2rem(10)
+        background darkcyan
+        color #fff
+    }
+    .user-text {
+
     }
 }
 </style>
