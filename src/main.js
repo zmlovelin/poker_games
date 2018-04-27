@@ -11,6 +11,7 @@ import service from './core/service'
 Vue.use(VueWechatTitle);
 Vue.use(service);
 Vue.config.productionTip = false;
+// 测试提交
 
 /* eslint-disable no-new */
 new Vue({
