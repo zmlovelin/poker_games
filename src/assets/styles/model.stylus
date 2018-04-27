@@ -1,0 +1,68 @@
+border-color= #ccc;
+
+.model {
+    width -pxToRem(260);
+    max-height -pxToRem(560);
+    position absolute;
+    background #fff;
+    z-index 10;
+    top 50%;
+    left 50%;
+    transform: translateX(-50%) translateY(-55%);
+    //min-height -pxToRem(200);
+    border 1px solid border-color;
+    font-size -pxToRem(18);
+    margin 0 auto;
+    border-radius -pxToRem(10);
+    .model-head {
+        padding  -pxToRem(5);
+        border-bottom 1px solid border-color;
+    }
+    .model-con {
+        padding  -pxToRem(20);
+        min-height -pxToRem(100);
+        max-height -pxToRem(300);
+        overflow-y auto;
+
+    }
+    .model-foot {
+        border-top 1px solid border-color;
+        padding -pxToRem(5);
+        text-align center;
+        .model-btn {
+            font-size -pxToRem(18);
+            padding -pxToRem(5) -pxToRem(20);
+            border 1px solid border-color ;
+            margin 0 -pxToRem(2);
+            border-radius -pxToRem(10);
+            background blueviolet;
+            color:#fff;
+        }
+    }
+
+}
+
+.model-mask {
+    background:rgba(0,0,0,.0);
+    position: fixed;
+    top: 0px;
+    left:0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 9
+}
+
+    //动画
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s
+}
+.fade-enter, .fade-leave-active {
+    opacity: 0
+}
+
+.mask-enter-active, .mask-leave-active {
+    transition: opacity .7s
+}
+.mask-enter, .mask-leave-active {
+    opacity: 0
+}

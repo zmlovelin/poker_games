@@ -4,4 +4,5 @@
 @import "login.stylus"
 @import "home.stylus"
 @import "game.stylus"
+@import "model.stylus"
 
