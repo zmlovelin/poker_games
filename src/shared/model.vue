@@ -6,11 +6,14 @@
                     {{modes.title || '提示2' }}
                 </div>
                 <div class="model-con">
-                    <div class="con-item" v-html="modes.content"></div>
+                    <div class="con-item" >
+                        <div v-if="modes.content" v-html="modes.content"></div>
+                        <slot v-else name="content"></slot>
+                    </div>
                 </div>
                 <div class="model-foot">
-                    <button class="model-btn" v-if="modes.type === 'confirm' ">{{ modes.btnSaveText || '确定' }}</button>
-                    <button @click="hideModel" class="model-btn"> {{ modes.btnCancelText || '取消' }} </button>
+                    <button class="model-btn" @click="okEvent" v-if="modes.type === 'confirm' ">{{ modes.btnSaveText || '确定' }}</button>
+                    <button @click="onCancel" class="model-btn"> {{ modes.btnCancelText || '取消' }} </button>
                 </div>
             </div>
 
@@ -42,14 +45,18 @@
             }
         },
         methods:{
-            hideModel() {
+            onCancel() {
                 this.isOk = false;
                 this.$emit('colsModel',{'isOk':this.isOk})
+            },
+            okEvent(){
+                this.onCancel();
+                this.modes.onOk()
             }
 
         },
         created () {
-
+            console.log(this.modes)
         }
     }
 </script>

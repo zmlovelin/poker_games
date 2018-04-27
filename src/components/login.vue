@@ -4,16 +4,23 @@
             hh
         </div>
         <div @click="showModel">点击</div>
-        <Model :modes="modes" :isVisible="isVisible" @colsModel="colsModel"></Model>
+        <Model :modes="modes" :isVisible="isVisible" @colsModel="colsModel">
+            <div slot="content">
+
+            </div>
+        </Model>
+        <Radio></Radio>
+        <Radio></Radio>
     </div>
 </template>
 
 <script>
-    import anime from 'animejs';
     import Model from '../shared/model';
+    import Radio from '../shared/radio';
   export default {
       components:{
-          Model
+          Model,
+          Radio
       },
     data () {
       return {
@@ -23,13 +30,13 @@
             btnCancelText:'取消',
             btnSaveText:'确定',
             type:'confirm',
+            content:'',
             class:'defind',
-            content:`<div>确定回到首页吗？</div>`,
             onCancel:()=> {
-
+                alert('点击了取消')
             },
             onOk:()=> {
-
+                alert('点击了确定')
             }
 
           },
@@ -40,7 +47,6 @@
         login() {
             this.$router.push('/home')
         },
-
         showModel() {
             this.isVisible = true;
         },
