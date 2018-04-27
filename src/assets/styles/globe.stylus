@@ -60,54 +60,22 @@ legend {
 img {
     border: none;
 }
-p {
-    margin-bottom: 0;
-}
-body,
-a,
-input,
-button {
-    font-family: "Microsoft Yahei", "Droid Sans Fallback", "Arial", "Helvetica", "sans-serif", "宋体";
-    outline: none;
-    color: #000;
-    text-decoration: none;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-a {
-    color: #428bca;
-}
-
-a:hover {
-    text-decoration: none;
-}
-
-table {
-    text-align: center;
-    vertical-align: middle;
-}
-
-th {
-    text-align: center;
-    vertical-align: middle;
-}
-
 
 html,body{
     height: 100%;
     font-family: "MicroSoft YaHei","sans-serif","Helvetica";/*是设备默认的字体*/
 }
-em, i {
-    font-style: normal;
+
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    list-style: none;
 }
 
-ul,ol{
-    list-style: none;
+em, i {
+    font-style: normal;
 }
 
 a{
@@ -116,13 +84,14 @@ a{
 }
 a:hover{
     color: #333;
+    text-decoration: none;
 }
 
 input,img,button,textarea{
     border: none;
     outline: none;
     resize: none;
-    /*  -webkit-appearance: none; */
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
 }
 
 .fl{
