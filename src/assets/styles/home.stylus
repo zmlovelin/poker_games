@@ -38,22 +38,115 @@
         }
     }
     .header-right {
-        padding -pxToRem(7.5) -pxToRem(12.5) -pxToRem(7.5);
+        padding -pxToRem(7.5) 0 -pxToRem(7.5);
         height 100%;
         width 50%;
-        font-size -pxToRem(15);
+        font-size -pxToRem(13);
         .r-Personal {
-            width 50%;
+            padding -pxToRem(2) -pxToRem(15)  0 0 ;
+            //width 50%;
             height 100%;
-            background blue;
+            box-sizing border-box;
+            //background blue;
+            .Personal-pic {
+                display inline-block;
+                width -pxToRem(30);
+                height -pxToRem(30);
+                .img {
+                    display inline-block;
+                    width -pxToRem(30)
+                    height -pxToRem(30)
+                    vertical-align middle;
+                }
+            }
+            .pic-text {
+
+            }
 
         }
         .r-recharge {
             width 50%;
             height 100%;
-            background pink;
+            //background pink;
+
 
         }
     }
 
+}
+
+.pg-home-con {
+    padding  -pxToRem(25) ;
+    height 75%;
+    //background red;
+    box-sizing border-box;
+    .con-start {
+        height 30%;
+        //background mediumvioletred;
+        border 2px solid rgba(255,255,255,.3);
+        box-shadow aliceblue
+        border-radius -pxToRem(10)
+        -webkit-box-shadow:0 0 10px rgba(0, 204, 204, .5);
+        -moz-box-shadow:0 0 10px rgba(0, 204, 204, .5);
+        box-shadow:0 0 10px rgba(0, 204, 204, .5);
+        background url("../images/start-yelow.png") no-repeat;
+        background-size 100% 100%;
+        padding  -pxToRem(6) -pxToRem(5);
+        margin-bottom  -pxToRem(30);
+        .start-con {
+            height 100%;
+            border 1px solid rgba(255,255,255,.4);
+            border-radius -pxToRem(10)
+        }
+    }
+
+    .con-tow {
+        height 30%;
+        //background mediumvioletred;
+        border 2px solid rgba(255,255,255,.3);
+        box-shadow aliceblue
+        border-radius -pxToRem(10)
+        -webkit-box-shadow:0 0 10px rgba(0, 204, 204, .5);
+        -moz-box-shadow:0 0 10px rgba(0, 204, 204, .5);
+        box-shadow:0 0 10px rgba(0, 204, 204, .5);
+        background url("../images/tow-green.png") no-repeat;
+        background-size 100% 100%;
+        padding  -pxToRem(6) -pxToRem(5);
+        margin-bottom  -pxToRem(30);
+        .tow-con {
+            height 100%;
+            border 1px solid rgba(255,255,255,.4);
+            border-radius -pxToRem(10)
+        }
+    }
+
+    .con-end {
+        height 30%;
+        //background mediumvioletred;
+        border 2px solid rgba(255,255,255,.3);
+        box-shadow aliceblue
+        border-radius -pxToRem(10)
+        -webkit-box-shadow:0 0 10px rgba(0, 204, 204, .5);
+        -moz-box-shadow:0 0 10px rgba(0, 204, 204, .5);
+        box-shadow:0 0 10px rgba(0, 204, 204, .5);
+        background url("../images/end-blue.png") no-repeat;
+        background-size 100% 100%;
+        padding  -pxToRem(6) -pxToRem(5);
+        margin-bottom  -pxToRem(30);
+        .end-con {
+            height 100%;
+            border 1px solid rgba(255,255,255,.4);
+            border-radius -pxToRem(10)
+        }
+    }
+
+
+}
+
+.home-bg {
+    color: #fff;
+    height 100%;
+    width 100%;
+    background url("../images/logo.png") no-repeat;
+    background-size 100% 100%;
 }

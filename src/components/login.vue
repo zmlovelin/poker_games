@@ -6,11 +6,9 @@
         <div @click="showModel">点击</div>
         <Model :modes="modes" :isVisible="isVisible" @colsModel="colsModel">
             <div slot="content">
-
+                dsadsad
             </div>
         </Model>
-        <Radio></Radio>
-        <Radio></Radio>
     </div>
 </template>
 
