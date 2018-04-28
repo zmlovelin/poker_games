@@ -1,5 +1,6 @@
 .game-wrap {
-    background dimgrey
+    background url("../images/game_bg.png")
+    background-size 100% 100%
     position absolute
     margin 0
     padding 0
@@ -12,6 +13,8 @@
         left 0
         right 0
         height 38px
-        background chocolate
+        background url("../images/gamebar.png")
+        background-size 320px 38px
+        font-size 12px
     }
 }

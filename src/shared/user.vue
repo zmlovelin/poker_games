@@ -1,61 +1,93 @@
 <template>
-    <div class="user-wrap" :style="wrapStyle">
-        <img class="user-ib" src="../assets/user.jpeg" width="45" height="45" alt="">
-        <span class="user-ib user-text">
-            name111
+    <div v-if="user" class="user-wrap" :style="wrapStyle">
+        <span class="user-ib user-text" :style="userTextStyle">
+            {{user.name}}
         </span>
-        <em class="user-ib user-text">200</em>
+        <img class="user-ib user-img" src="../assets/user.jpeg" :width="imgWidth" alt="">
+        <em class="user-ib user-text user-money" :style="userTextStyle">{{user.money}}</em>
     </div>
 </template>
 
 <script>
+    import {USER_WIDTH} from './config'
     export default {
         props: {
             user: {
-                type: Object
+                type: Object,
+                default: {}
             },
             position: {
                 type: Object
             }
         },
+        data() {
+            return {
+                imgWidth: USER_WIDTH - 6
+            }
+        },
         computed: {
             wrapStyle() {
-                let position = {};
+                let styles = {
+                    width: `${USER_WIDTH}px`
+                };
                 if (this.position.left) {
-                    position.left = this.position.left + 'px'
+                    styles.left = this.position.left + 'px'
                 }
                 if (this.position.right) {
-                    position.right = this.position.right + 'px';
-                    position.left = null;
+                    styles.right = this.position.right + 'px';
+                    styles.left = null;
                 }
-                position.top = this.position.top + 'px';
+                styles.top = this.position.top + 'px';
                 if (this.position.bottom) {
-                    position.bottom = this.position.bottom + 'px';
-                    position.top = null;
+                    styles.bottom = this.position.bottom + 'px';
+                    styles.top = null;
                 }
-                return position;
+                return styles;
+            },
+            userTextStyle() {
+                let scale = 0.5;
+                let styles = {
+                    width: `${(USER_WIDTH - 6) / scale}px`,
+                    marginLeft: `-${this.imgWidth / 2 - 1.5}px`,
+                    transform: `scale(${scale})`,
+                    lineHeight: `${12 * 2.2 * scale}px`
+                }
+                return styles;
             }
         }
     }
 </script>
 
 <style lang="stylus" scoped>
--px2rem(px) {
-    return px / 100 * 2 rem;
-}
+
 
 .user-wrap {
-    width  -px2rem(45)
-    overflow hidden
-    position absolute
+    overflow: hidden;
+    position: absolute;
+    text-align: center;
+    background-color: #392f57;
+    border-radius: 5px;
+    box-shadow: inset 0 0 3px 0px #7f6fb5, 0 0 1px 0.016rem #2c2648;
+
     .user-ib {
         display block
-        font-size -px2rem(10)
-        background darkcyan
-        color #fff
+        font-size 12px
+        color #bfbfbf
+        text-shadow 0 0 1px #FF9800, 0 0 2px #FF5722, 0 0 3px #fd3d00;
+    }
+    .user-img {
+        margin 0 auto
+        border-radius 3px
     }
     .user-text {
-
+        overflow: hidden
+        text-overflow ellipsis
+        white-space nowrap
+    }
+    .user-money {
+        background #2c2648
+        border-radius 99px
+        box-shadow: inset 0 0 2px #1a1729;
     }
 }
 </style>
