@@ -2,18 +2,22 @@
 .pg-home-header {
     height -pxToRem(50);
     font-size -pxToRem(35);
-    background rgba(0,0,0,.3);
+    background rgba(241,224,224,.2);
     border-radius 0 0 -pxToRem(25) -pxToRem(25) /0 0 -pxToRem(25) -pxToRem(25);
     overflow hidden;
     .header-left {
-        padding -pxToRem(7.5) -pxToRem(12.5) -pxToRem(7.5);
+        //padding -pxToRem(7.5) -pxToRem(7) -pxToRem(7.5) -pxToRem(12.5);
         height 100%;
-        width 50%;
+        width 60%;
+        box-sizing border-box;
         .header-pic {
+            padding -pxToRem(7.5) -pxToRem(7) -pxToRem(7.5) -pxToRem(12.5);
             display inline-block;
             border-radius -pxToRem(7.5)
-            width -pxToRem(35);
-            height -pxToRem(35);
+            width -pxToRem(55);
+            //height -pxToRem(60);
+            //width 100%;
+            height 100%;
             overflow hidden
             .pic-auto {
                 display inline-block;
@@ -23,24 +27,40 @@
             }
         }
         .pic-name {
+            padding -pxToRem(5) 0  -pxToRem(4);
             font-size -pxToRem(12.5)
             width 100%;
             vertical-align top;
         }
         .recharge {
-            position absolute;
-            bottom 0px;
+            //position absolute;
+            //bottom -pxToRem(-5);
             font-size -pxToRem(15);
-            width 70%;
-            height -pxToRem(10);
+            width 90%;
+            height -pxToRem(20);
             border-radius -pxToRem(15);
-            background forestgreen;
+            //background forestgreen;
+
+            .img-cz {
+                width: -pxToRem(50);
+                height:100%;
+                display:inline-block;
+            }
+            .text-cz {
+                width:50%;
+                height: 100%;
+                display: inline-block;
+                vertical-align top;
+                background rgba(0,0,0,.5);
+                text-align center;
+                border-radius -pxToRem(10)
+            }
         }
     }
     .header-right {
         padding -pxToRem(7.5) 0 -pxToRem(7.5);
         height 100%;
-        width 50%;
+        width 40%;
         font-size -pxToRem(13);
         .r-Personal {
             padding -pxToRem(2) -pxToRem(15)  0 0 ;
@@ -96,7 +116,8 @@
         .start-con {
             height 100%;
             border 1px solid rgba(255,255,255,.4);
-            border-radius -pxToRem(10)
+            border-radius -pxToRem(10);
+
         }
     }
 
@@ -150,3 +171,104 @@
     background url("../images/logo.png") no-repeat;
     background-size 100% 100%;
 }
+
+.statr-pic {
+     position relative;
+     top -pxToRem(-20);
+     left -pxToRem(5);
+     width 40%;
+     height -pxToRem(120)
+     background url("../images/start-people.png") no-repeat;
+     background-size 100% 100%;
+ }
+.tow-pic {
+    position relative;
+    top -pxToRem(-20);
+    left -pxToRem(5);
+    width 40%;
+    height -pxToRem(121)
+    background url("../images/tow-people.png") no-repeat;
+    background-size 100% 100%;
+}
+.end-pic {
+    position relative;
+    top -pxToRem(-20);
+    left -pxToRem(5);
+    width 45%;
+    height -pxToRem(135)
+    background url("../images/end-people.png") no-repeat;
+    background-size 100% 100%;
+}
+.people-text {
+    overflow hidden;
+    font-size -pxToRem(34);
+    position relative;
+    height 100%;
+    padding 0 -pxToRem(10);
+    .text-span {
+        width 100%;
+        position absolute;
+        top 50%;
+        transform translateY(-50%);
+        font-weight 800;
+        color: #fff;
+        text-transform: uppercase;
+        //text-shadow: red 0 -pxToRem(2) 0;
+        text-shadow -pxToRem(3) -pxToRem(3) 0 #ccc, -pxToRem(2) -pxToRem(2) 0 #eee;
+        //text-shadow 0 0 -pxToRem(20) #fdec84,
+        //-pxToRem(10) -pxToRem(10) -pxToRem(30) #ffae35,
+        //-pxToRem(20) -pxToRem(20) -pxToRem(40) #ec760c,
+        //-pxToRem(20) -pxToRem(60) -pxToRem(50) #cd4607,
+        //0 -pxToRem(80) -pxToRem(60) #973717,
+        //-pxToRem(10) -pxToRem(40) -pxToRem(70) #451b0e;
+
+    }
+}
+
+
+
+    //底部
+.home-foot {
+    $lg = linear-gradient(#ccc);
+    height 15%;
+    padding -pxToRem(20);
+    .foot-icon{
+        width:-pxToRem(200);
+        height:100%;
+        text-align:center;
+        color:#fff;
+        background $lg;
+        position:relative;
+        margin 0 auto
+        z-index 1000
+    }
+    .foot-icon:before{
+        content:'';
+        display:block;
+        width:-pxToRem(35)
+        height:100%;
+        position:absolute;
+        transform:skewX(-30deg);
+        background $lg
+        border-top-left-radius:-pxToRem(8)
+        left:-pxToRem(-20);
+        overflow hidden;
+        top:0;
+    }
+    .foot-icon:after{
+        content:'';
+        display:block;
+        width:-pxToRem(35)
+        height:100%;
+        overflow hidden;
+        position:absolute;
+        transform:skewX(30deg);
+        background $lg
+        border-top-right-radius:-pxToRem(8)
+        top:0;
+        right:-pxToRem(-20);
+    }
+
+}
+
+

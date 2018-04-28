@@ -63,7 +63,8 @@ img {
 
 html,body{
     height: 100%;
-    font-family: "MicroSoft YaHei","sans-serif","Helvetica";/*是设备默认的字体*/
+    font-family:  MicroSoft YaHei, sans-serif,Helvetica;
+    color: #fff;
 }
 
 
@@ -80,10 +81,10 @@ em, i {
 
 a{
     text-decoration: none;
-    color: #333;
+    color: #fff;
 }
 a:hover{
-    color: #333;
+    color: #fff;
     text-decoration: none;
 }
 
