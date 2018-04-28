@@ -3,7 +3,7 @@
         <span class="user-ib user-text" :style="userTextStyle">
             {{user.name}}
         </span>
-        <img class="user-ib user-img" src="../assets/user.jpeg" :width="imgWidth" alt="">
+        <img class="user-ib user-img" src="../assets/images/user.jpeg" :width="imgWidth" alt="">
         <em class="user-ib user-text user-money" :style="userTextStyle">{{user.money}}</em>
     </div>
 </template>

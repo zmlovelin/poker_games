@@ -63,7 +63,7 @@
         border 1px solid antiquewhite
         width 30px
         height 45px
-        background url("../assets/pokes.jpeg")
+        background url("../assets/images/pokes.jpeg")
         background-size 390px 225px
         background-position-x -61px
         background-position-y -181px
