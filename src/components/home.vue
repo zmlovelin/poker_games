@@ -6,9 +6,9 @@
                     <img src="../assets/images/pq-logo.png" class= "pic-auto" alt="">
                 </div>
                 <div  style="overflow:hidden;padding-left: .1rem;height: 100%;position: relative">
-                    <div class="pic-name overflows">三生三世十里桃花三生三世十里桃花</div>
+                    <div class="pic-name overflows">{{userInfo.realname}}</div>
                     <div class="recharge">
-                        <span class="text-cz">405</span>
+                        <span class="text-cz">{{userInfo.score}}</span>
                         <img class="img-cz" src="../assets/images/chongzhi.png" alt="">
                     </div>
                 </div>
@@ -72,12 +72,31 @@
 
 <script>
     export default {
-
-        name: "home",
+        data() {
+            return {
+                userInfo:Object,
+                name:null,
+            }
+        },
         methods: {
             handleClick() {
                 this.$router.push('/game')
+            },
+            getUserInfo() {
+                let url ="api/user/getUserInfo";
+                let body = {
+                    account : "zhangsan",
+                }
+                this.$http.post(url,body).then(success=>{
+                    this.userInfo = JSON.parse(success.data.user);
+                   console.log(JSON.parse(success.data.user));
+                },error=>{
+
+                })
             }
+        },
+        created() {
+            this.getUserInfo();
         }
     }
 </script>

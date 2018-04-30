@@ -6,7 +6,8 @@ import router from './router';
 import './assets/styles/index.stylus';
 import VueWechatTitle from 'vue-wechat-title';
 import service from './core/service'
-
+import axios from 'axios'
+Vue.prototype.$http = axios
 
 Vue.use(VueWechatTitle);
 Vue.use(service);
