@@ -26,7 +26,8 @@
     import poke from'../shared/poke';
     import anime from 'animejs';
     import {
-        POKE_WIDTH, USER_WIDTH, FIRST_USER_MARGIN_TOP, USER_PADDING, POKE_SPACE, USER_AREA_HEIGHT, setUserAreaHeight
+        POKE_WIDTH, USER_WIDTH, FIRST_USER_MARGIN_TOP, USER_PADDING,
+        POKE_TO_USER, POKE_SPACE, USER_AREA_HEIGHT, setUserAreaHeight
     } from '../shared/config'
 
     export default {
@@ -69,15 +70,22 @@
                         translateY: user.top - 200
                     }
                     if (i < 4) {
-                        poke.translateX = - (145 - USER_PADDING * 2 - USER_WIDTH) + j * POKE_SPACE;
+                        poke.translateX = - (145 - USER_PADDING - POKE_TO_USER - USER_WIDTH) + j * POKE_SPACE;
                     } else {
-                        poke.translateX = 320 -USER_PADDING * 2 - USER_WIDTH - 2 * POKE_SPACE - POKE_WIDTH + j * POKE_SPACE - 145;
+                        poke.translateX = 320 -USER_PADDING - POKE_TO_USER - USER_WIDTH - 2 * POKE_SPACE - POKE_WIDTH + j * POKE_SPACE - 145;
                     }
                     user.pokes.push(poke);
                 }
                 users.push(user);
             }
             this.users = users;
+
+            this.$userService.getUserInfo(123).then(res => {
+                console.log(res);
+            });
+            this.$userService.beginGame(123, 223, 555, 666).then(res => {
+                console.log(res);
+            });
 
             this.$userService.getLoginUser('guanyj', '123').then(result => {
                 this.loginUser = result.data;
@@ -100,7 +108,7 @@
                                 translateY: poke.translateY,
                                 rotate: 360,
                                 scale: 0.8,
-                            }
+                            };
                             if (i === 0 && j === 0) {
 
                             } else {
