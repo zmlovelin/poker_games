@@ -72,7 +72,7 @@
                 display inline-block
                 height 20px
                 width 20px
-                background-size 20px 20px
+                background-size 20px 18px
             }
         }
         .cx-radio-checked {
@@ -81,12 +81,12 @@
                 display inline-block
                 height 20px
                 width 20px
-                background-size 20px 20px
+                background-size 20px 18px
             }
         }
         .cx-checkbox {
             background url("../assets/images/comp/radio-bg.png")
-            background-size 20px 20px
+            background-size 20px 18px
             height 20px
             width 20px
             display inline-block

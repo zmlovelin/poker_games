@@ -27,8 +27,8 @@
             </div>
         </div>
 
-        <div class="pg-home-con" @click="abcde">
-            <div class="con-start">
+        <div class="pg-home-con">
+            <div class="con-start" @click="showStartRoom">
                 <div class="start-con">
                     <div class="statr-pic fl">
 
@@ -69,29 +69,80 @@
 
         <cx-modal :modes="modes" :isVisible="isVisible" @colsModel="colsModel">
             <div slot="content">
-                <cx-checkbox-group v-model="models">
-                    <cx-checkbox label="zs">
-                        <span>张三</span>
-                    </cx-checkbox>
-                    <cx-checkbox label="ls">
-                        <span>李四</span>
-                    </cx-checkbox>
-                    <cx-checkbox  label="ww">
-                        <span>王五</span>
-                    </cx-checkbox>
-                </cx-checkbox-group>
+                <div  class="clearfix" style="margin: .2rem 0;color: #333;">
+                    <div class="fl">
+                        <span>房间人数：</span>
+                    </div>
+                    <div class="fl">
+                        <cx-checkbox-group v-model="radioModel" type="radio">
+                            <cx-checkbox label="ls">
+                                <span>9人</span>
+                            </cx-checkbox>
+                        </cx-checkbox-group>
+                    </div>
+                </div>
+                <!--房间级别-->
+                <div  class="clearfix" style="margin: .2rem 0;color: #333;">
+                    <div class="fl">
+                        <span>级别：</span>
+                    </div>
+                    <div class="fl" v-for="(item,index) in roomDj" :key="index">
+                        <cx-checkbox-group v-model="radioModel" type="radio">
+                            <cx-checkbox label="item.level + ' '">
+                                <span>{{item.name }}</span>
+                            </cx-checkbox>
+                        </cx-checkbox-group>
 
-                <cx-checkbox-group v-model="radioModel" type="radio">
-                    <cx-checkbox label="zs">
-                        <span>张三</span>
-                    </cx-checkbox>
-                    <cx-checkbox label="ls">
-                        <span>李四</span>
-                    </cx-checkbox>
-                    <cx-checkbox  label="ww">
-                        <span>王五</span>
-                    </cx-checkbox>
-                </cx-checkbox-group>
+                    </div>
+                </div>
+                <!--下注分数-->
+                <div  class="clearfix" style="margin: .2rem 0;color: #333;">
+                    <div class="fl">
+                        <span>最低下注分数：</span>
+                    </div>
+                    <div class="fl">
+                        <span>{{}}</span>
+                    </div>
+                </div>
+                <div  class="clearfix" style="margin: .2rem 0;color: #333;">
+                    <div class="fl">
+                        <span>最高下注分数：</span>
+                    </div>
+                    <div class="fl">
+                        <span>{{}}</span>
+                    </div>
+                </div>
+                <!--房间私密-->
+                <div  class="clearfix" style="margin: .2rem 0;color: #333;">
+                    <div class="fl">
+                        <span>私密房间：</span>
+                    </div>
+                    <div class="fl">
+                        <cx-checkbox-group v-model="radioModel" type="radio">
+                            <cx-checkbox label="zs">
+                                <span>是</span>
+                            </cx-checkbox>
+                            <cx-checkbox label="1">
+                                <span>否</span>
+                            </cx-checkbox>
+                        </cx-checkbox-group>
+                    </div>
+                </div>
+
+
+                <!--<cx-checkbox-group v-model="models">-->
+                    <!--<cx-checkbox label="zs">-->
+                        <!--<span>张三</span>-->
+                    <!--</cx-checkbox>-->
+                    <!--<cx-checkbox label="ls">-->
+                        <!--<span>李四</span>-->
+                    <!--</cx-checkbox>-->
+                    <!--<cx-checkbox  label="ww">-->
+                        <!--<span>王五</span>-->
+                    <!--</cx-checkbox>-->
+                <!--</cx-checkbox-group>-->
+
+
             </div>
         </cx-modal>
     </div>
@@ -103,20 +154,23 @@
         data() {
             return {
                 userInfo:Object,
+                roomDj:Object,
+                saveRooms:Object,
                 name:null,
-                models: ['zs', 'ww'],
-                radioModel: 'ls',
+                models: ['cj', 'zj'],
+                radioModel: '1',
                 modes:{
-                    title:'提示',
-                    btnCancelText:'取消',
-                    btnSaveText:'确定',
+                    title:'创建房间',
+                    btnCancelText:'取  消',
+                    btnSaveText:'确 定',
                     type:'confirm',
                     class:'defind',
                     onCancel:()=> {
                         alert('点击了取消')
                     },
                     onOk:()=> {
-                        alert('点击了确定')
+                        // alert('点击了确定')
+                        this.saveRoom();
                     }
 
                 },
@@ -136,14 +190,50 @@
                     account : "zhangsan",
                 }
                 this.$http.post(url,body).then(success=>{
-                    this.userInfo = JSON.parse(success.data.user);
-                   console.log(JSON.parse(success.data.user));
+                    this.userInfo = JSON.parse(success.body.data);
+                   console.log(JSON.parse(success.body.data));
                 },error=>{
 
                 })
             },
-            abcde() {
+            getRoomdj() {
+                let url ="api/user/getRoomLevel";
+                let body = {
+                    account : "17386040468",
+                }
+                this.$http.post(url,body).then(success=>{
+                    this.roomDj = JSON.parse(success.body.data);
+                    console.log(this.roomDj);
+                },error=>{
+
+                })
+            },
+
+            saveRoom() {
+                let url ="api/user/saveRoomInfo";
+                let body = {
+                    room:null,
+                    roomNum:9,
+                    minScore:100,
+                    maxScore:1000,
+                    roomLevel:2,
+                    roomLevelName:'hhh',
+                    account:17,
+                    createBy:1,
+                    isPrivate:1,
+                    password:null
+                }
+                this.$http.post(url,body).then(success=>{
+                    this.saveRooms = JSON.parse(success.body.data);
+                    console.log(success.body);
+                },error=>{
+
+                })
+            },
+
+            showStartRoom() {
                 this.isVisible = true;
+                this.getRoomdj();
             },
             colsModel(item){
                 this.isVisible = item.isOk;

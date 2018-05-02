@@ -1,7 +1,7 @@
 border-color= #ccc;
 
 .model {
-    width -pxToRem(260);
+    width -pxToRem(325);
     max-height -pxToRem(560);
     position absolute;
     background #fff;
@@ -11,29 +11,32 @@ border-color= #ccc;
     transform: translateX(-50%) translateY(-80%);
     //min-height -pxToRem(200);
     border 1px solid border-color;
-    font-size -pxToRem(16);
+    font-size -pxToRem(14);
     margin 0 auto;
     overflow hidden;
-    background radial-gradient(circle at left top, #8a95bf, rgba(89,60,152,0.6), rgba(62,75,113,0.76))
+    background radial-gradient(circle at left top, #8a95bf, rgb(84, 52, 152), rgb(96, 103, 125))
     background-size 100% 100%;
     border-radius -pxToRem(10);
     .model-head {
         padding  -pxToRem(5);
-        border-bottom 1px solid border-color;
+        //border-bottom 1px solid border-color;
         text-align center;
         color #fff;
     }
     .model-con {
-        padding  -pxToRem(20);
+        margin  0 -pxToRem(10);
+        border 1px solid border-color;
         min-height -pxToRem(100);
         max-height -pxToRem(300);
         overflow-y auto;
+        border-radius -pxToRem(10);
+        padding 0 -pxToRem(10);
         color #fff;
 
     }
     .model-foot {
-        border-top 1px solid border-color;
-        padding -pxToRem(5);
+        //border-top 1px solid border-color;
+        padding -pxToRem(10) -pxToRem(5);
         text-align center;
         .model-save {
             font-size: 0.32rem;

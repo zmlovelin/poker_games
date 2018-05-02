@@ -1,9 +1,9 @@
 <template>
     <div>
         <div @click="login()">
-            hh
+            打野
         </div>
-        <div @click="showModel">点击</div>
+        <div @click="showModel">中单</div>
         <Model :modes="modes" :isVisible="isVisible" @colsModel="colsModel">
             <div slot="content">
              大使馆干啥的
@@ -24,7 +24,7 @@
       return {
         msg: '授权',
           modes:{
-            title:'提示',
+            title:'创建房间',
             btnCancelText:'取消',
             btnSaveText:'确定',
             type:'confirm',
