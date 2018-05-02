@@ -8,10 +8,23 @@ import VueWechatTitle from 'vue-wechat-title';
 import service from './core/service'
 import vs from 'vue-resource';
 
+import checkboxGroup from './shared/checkbox-group'
+import checkbox from './shared/checkbox'
+
 Vue.use(vs);
+
+const cxComponents = {
+    cxCheckboxGroup: checkboxGroup,
+    cxCheckbox: checkbox
+}
+
+Object.keys(cxComponents).forEach(key => {
+    Vue.component(key, cxComponents[key]);
+});
 
 Vue.use(VueWechatTitle);
 Vue.use(service);
+
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */

@@ -27,7 +27,7 @@
             </div>
         </div>
 
-        <div class="pg-home-con">
+        <div class="pg-home-con" @click="abcde">
             <div class="con-start">
                 <div class="start-con">
                     <div class="statr-pic fl">
@@ -66,17 +66,65 @@
         <div class="home-foot">
             <!--<div class="foot-icon"></div>-->
         </div>
-    </div>
 
+        <cx-modal :modes="modes" :isVisible="isVisible" @colsModel="colsModel">
+            <div slot="content">
+                <cx-checkbox-group v-model="models">
+                    <cx-checkbox label="zs">
+                        <span>张三</span>
+                    </cx-checkbox>
+                    <cx-checkbox label="ls">
+                        <span>李四</span>
+                    </cx-checkbox>
+                    <cx-checkbox  label="ww">
+                        <span>王五</span>
+                    </cx-checkbox>
+                </cx-checkbox-group>
+
+                <cx-checkbox-group v-model="radioModel" type="radio">
+                    <cx-checkbox label="zs">
+                        <span>张三</span>
+                    </cx-checkbox>
+                    <cx-checkbox label="ls">
+                        <span>李四</span>
+                    </cx-checkbox>
+                    <cx-checkbox  label="ww">
+                        <span>王五</span>
+                    </cx-checkbox>
+                </cx-checkbox-group>
+            </div>
+        </cx-modal>
+    </div>
 </template>
 
 <script>
+    import modal from '../shared/model'
     export default {
         data() {
             return {
                 userInfo:Object,
                 name:null,
+                models: ['zs', 'ww'],
+                radioModel: 'ls',
+                modes:{
+                    title:'提示',
+                    btnCancelText:'取消',
+                    btnSaveText:'确定',
+                    type:'confirm',
+                    class:'defind',
+                    onCancel:()=> {
+                        alert('点击了取消')
+                    },
+                    onOk:()=> {
+                        alert('点击了确定')
+                    }
+
+                },
+                isVisible:false
             }
+        },
+        components: {
+            'cx-modal': modal
         },
         methods: {
             handleClick() {
@@ -93,6 +141,12 @@
                 },error=>{
 
                 })
+            },
+            abcde() {
+                this.isVisible = true;
+            },
+            colsModel(item){
+                this.isVisible = item.isOk;
             }
         },
         created() {
