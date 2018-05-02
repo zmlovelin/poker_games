@@ -8,34 +8,52 @@ border-color= #ccc;
     z-index 10;
     top 50%;
     left 50%;
-    transform: translateX(-50%) translateY(-55%);
+    transform: translateX(-50%) translateY(-80%);
     //min-height -pxToRem(200);
     border 1px solid border-color;
-    font-size -pxToRem(18);
+    font-size -pxToRem(16);
     margin 0 auto;
+    overflow hidden;
+    background radial-gradient(circle at left top, #8a95bf, rgba(89,60,152,0.6), rgba(62,75,113,0.76))
+    background-size 100% 100%;
     border-radius -pxToRem(10);
     .model-head {
         padding  -pxToRem(5);
         border-bottom 1px solid border-color;
+        text-align center;
+        color #fff;
     }
     .model-con {
         padding  -pxToRem(20);
         min-height -pxToRem(100);
         max-height -pxToRem(300);
         overflow-y auto;
+        color #fff;
 
     }
     .model-foot {
         border-top 1px solid border-color;
         padding -pxToRem(5);
         text-align center;
-        .model-btn {
-            font-size -pxToRem(18);
+        .model-save {
+            font-size: 0.32rem;
+            padding: 0.1rem 0.4rem;
+            margin: 0 0.04rem;
+            border-radius: 0.2rem;
+            background: linear-gradient(#37b7f1, #177186);
+            /* background: radial-gradient(circle at 25% 60%, rgba(177,191,60,0.969), rgba(158,191,45,0.588), rgba(102,146,14,0.82)); */
+            color: #fff;
+            box-shadow: inset 0px 0px 1px 0px #f5eeee, 0 0 1px 0px #217979;
+        }
+        .model-cancel {
+            font-size -pxToRem(16);
             padding -pxToRem(5) -pxToRem(20);
-            border 1px solid border-color ;
+            //border 1px solid border-color ;
             margin 0 -pxToRem(2);
             border-radius -pxToRem(10);
-            background blueviolet;
+            //background radial-gradient(circle at 25% 60%, #6886a5, #405dd4, rgba(181, 185, 210, 0.76))
+            background linear-gradient(#e05c2d, #861717);
+            box-shadow: inset 0px 0px 1px 0px #f5eeee, 0 0 1px 0px #217979;
             color:#fff;
         }
     }

@@ -6,7 +6,7 @@
         <div @click="showModel">点击</div>
         <Model :modes="modes" :isVisible="isVisible" @colsModel="colsModel">
             <div slot="content">
-                dsadsad
+             大使馆干啥的
             </div>
         </Model>
     </div>

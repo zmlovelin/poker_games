@@ -2,7 +2,7 @@
     <div>
         <transition name="fade">
             <div transiton="fade" id="model" class="model" :class="modes.class" v-show="isVisible">
-                <div class="model-head">
+                <div v-if="modes.title" class="model-head">
                     {{modes.title || '提示2' }}
                 </div>
                 <div class="model-con">
@@ -12,8 +12,8 @@
                     </div>
                 </div>
                 <div class="model-foot">
-                    <button class="model-btn" @click="okEvent" v-if="modes.type === 'confirm' ">{{ modes.btnSaveText || '确定' }}</button>
-                    <button @click="onCancel" class="model-btn"> {{ modes.btnCancelText || '取消' }} </button>
+                    <button class="model-save" @click="okEvent" v-if="modes.type === 'confirm' ">{{ modes.btnSaveText || '确 定' }}</button>
+                    <button @click="onCancel" class="model-cancel"> {{ modes.btnCancelText || '取 消' }} </button>
                 </div>
             </div>
 
