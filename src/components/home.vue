@@ -74,8 +74,8 @@
                         <span>房间人数：</span>
                     </div>
                     <div class="fl">
-                        <cx-checkbox-group v-model="radioModel" type="radio">
-                            <cx-checkbox label="ls">
+                        <cx-checkbox-group v-model="personNum" @on-change="change" type="radio">
+                            <cx-checkbox label="9">
                                 <span>9人</span>
                             </cx-checkbox>
                         </cx-checkbox-group>
@@ -86,10 +86,10 @@
                     <div class="fl">
                         <span>级别：</span>
                     </div>
-                    <div class="fl" v-for="(item,index) in roomDj" :key="index">
-                        <cx-checkbox-group v-model="radioModel" type="radio">
-                            <cx-checkbox label="item.level + ' '">
-                                <span>{{item.name }}</span>
+                    <div class="fl">
+                        <cx-checkbox-group v-model="radioModel" @on-change="change" type="radio">
+                            <cx-checkbox v-for="(item,index) in roomDj" :key="index" :label="item.level">
+                                <span>{{item.name}}</span>
                             </cx-checkbox>
                         </cx-checkbox-group>
 
@@ -101,7 +101,7 @@
                         <span>最低下注分数：</span>
                     </div>
                     <div class="fl">
-                        <span>{{}}</span>
+                        <span>{{radioModel}}</span>
                     </div>
                 </div>
                 <div  class="clearfix" style="margin: .2rem 0;color: #333;">
@@ -109,7 +109,7 @@
                         <span>最高下注分数：</span>
                     </div>
                     <div class="fl">
-                        <span>{{}}</span>
+                        <span>{{radioModel}}</span>
                     </div>
                 </div>
                 <!--房间私密-->
@@ -128,21 +128,6 @@
                         </cx-checkbox-group>
                     </div>
                 </div>
-
-
-                <!--<cx-checkbox-group v-model="models">-->
-                    <!--<cx-checkbox label="zs">-->
-                        <!--<span>张三</span>-->
-                    <!--</cx-checkbox>-->
-                    <!--<cx-checkbox label="ls">-->
-                        <!--<span>李四</span>-->
-                    <!--</cx-checkbox>-->
-                    <!--<cx-checkbox  label="ww">-->
-                        <!--<span>王五</span>-->
-                    <!--</cx-checkbox>-->
-                <!--</cx-checkbox-group>-->
-
-
             </div>
         </cx-modal>
     </div>
@@ -155,6 +140,7 @@
             return {
                 userInfo:Object,
                 roomDj:Object,
+                personNum: '9',
                 saveRooms:Object,
                 name:null,
                 models: ['cj', 'zj'],
@@ -237,6 +223,9 @@
             },
             colsModel(item){
                 this.isVisible = item.isOk;
+            },
+            change(data) {
+                console.log(data);
             }
         },
         created() {

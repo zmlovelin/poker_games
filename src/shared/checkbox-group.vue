@@ -39,11 +39,13 @@
                     this.children.forEach(child => {
                         child.currentValue = this.currentValue.includes(child.label);
                     });
+                    this.$emit('on-change', this.currentValue);
                 } else {
                     this.children.forEach(child => {
                         child.currentValue = label === child.label;
                     });
                     this.currentValue = [label];
+                    this.$emit('on-change', label);
                 }
             },
         }
