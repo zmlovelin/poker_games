@@ -69,7 +69,7 @@
 
         <cx-model :modes="modes" :isVisible="isVisible" @colsModel="colsModel">
             <div slot="content">
-                <div  class="clearfix" style="margin: .2rem 0;color: #333;">
+                <div  class="clearfix margin">
                     <div class="fl">
                         <span>房间人数：</span>
                     </div>
@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <!--房间级别-->
-                <div  class="clearfix" style="margin: .2rem 0;color: #333;">
+                <div  class="clearfix margin" >
                     <div class="fl">
                         <span>级别：</span>
                     </div>
@@ -96,38 +96,51 @@
                     </div>
                 </div>
                 <!--下注分数-->
-                <div  class="clearfix" style="margin: .2rem 0;color: #333;">
-                    <div class="fl">
+                <div  class="clearfix margin" >
+                    <div class="fl" style="padding: .09rem 0">
                         <span>最低下注分数：</span>
                     </div>
-                    <div class="fl">
-                        <span>{{minScore}}</span>
+                    <div class="fl" >
+                        <input class="ScoreInput" type="number" v-model="minScore">
                     </div>
                 </div>
-                <div  class="clearfix" style="margin: .2rem 0;color: #333;">
-                    <div class="fl">
+                <div  class="clearfix margin" >
+                    <div class="fl" >
                         <span>最高下注分数：</span>
                     </div>
                     <div class="fl">
                         <span>{{maxScore}}</span>
+                        <!--<input class="ScoreInput" disabled="true" type="number" :value="maxScore">-->
                     </div>
                 </div>
                 <!--房间私密-->
-                <div  class="clearfix" style="margin: .2rem 0;color: #333;">
+                <div  class="clearfix margin">
                     <div class="fl">
                         <span>私密房间：</span>
                     </div>
                     <div class="fl">
                         <cx-checkbox-group v-model="passwordRoom" type="radio" @on-change="changePassword">
                             <cx-checkbox label="1">
-                                <span>是</span>
-                            </cx-checkbox>
-                            <cx-checkbox label="0">
                                 <span>否</span>
+                            </cx-checkbox>
+                            <cx-checkbox label="2">
+                                <span>是</span>
                             </cx-checkbox>
                         </cx-checkbox-group>
                     </div>
                 </div>
+
+                <div  v-if="isPassword" class="clearfix margin">
+                    <div class="fl" style="padding: .09rem 0">
+                        <span>房间密码：</span>
+                    </div>
+                    <div class="fl">
+                        <input class="passwordInput" v-model="roomPassword" type="number" placeholder="请输入6位数字密码" >
+                    </div>
+
+                </div>
+
+
             </div>
         </cx-model>
     </div>
@@ -140,9 +153,13 @@
                 userInfo:Object,
                 roomDj:Object,
                 saveRooms:Object,
+                roomLevelName:'初级房',
                 personNum: '9',
                 roomLevel: '1',
-                passwordRoom:'0',
+                levelRoom:'1',
+                passwordRoom:'1',
+                roomPassword:null,
+                isPassword:false,
                 maxScore:null,
                 minScore:null,
                 extractScore:null,
@@ -158,15 +175,15 @@
                     onOk:()=> {
                         let body = {
                             room:null,
-                            roomNum:9,
-                            minScore:100,
-                            maxScore:1000,
-                            roomLevel:2,
-                            roomLevelName:'hhh',
-                            account:17,
-                            createBy:1,
-                            isPrivate:1,
-                            password:null
+                            roomNum:this.personNum,
+                            minScore:this.minScore,
+                            maxScore:this.maxScore,
+                            roomLevel:this.levelRoom,
+                            roomLevelName:this.roomLevelName,
+                            account:this.userInfo.mobile,
+                            createBy:this.userInfo.id,
+                            isPrivate:this.passwordRoom,
+                            password:this.roomPassword
                         }
                         this.$userService.saveRoomInfo(body).then(res=>{
                             console.log(res)
@@ -199,19 +216,32 @@
 
             },
             changeScore(i) {
+                this.levelRoom = parseInt(i);
+                if( i === 1){
+                    this.roomLevelName = '初级房'
+                }else if( i === 2) {
+                    this.roomLevelName = '中级房'
+                } else {
+                    this.roomLevelName = '高级房'
+                }
                 this.minScore = this.roomDj[i-1].minScore;
                 this.maxScore = this.roomDj[i-1].maxScore;
             },
             changePassword(i) {
-
+                if( i === '2' ){
+                    this.isPassword = true;
+                    this.passwordRoom = parseInt(i);
+                }else {
+                    this.isPassword = false;
+                    this.passwordRoom = parseInt(i);
+                }
             }
-
-
         },
         created() {
             //获取首页信息
             this.$userService.getUserInfo(123).then(res => {
                 this.userInfo = res;
+                console.log(res)
             });
         }
     }

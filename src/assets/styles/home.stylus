@@ -272,3 +272,24 @@
 }
 
 
+.margin {
+    margin: -pxToRem(10) 0;
+    color: #333;
+}
+.passwordInput {
+    background: transparent;
+    border: 1px solid #cccccc63;
+    border-radius: -pxToRem(5);
+    padding-left: -pxToRem(5);
+    height -pxToRem(25);
+    color: #333 !important;
+}
+.ScoreInput {
+    width -pxToRem(100);
+    height -pxToRem(25);
+    background: transparent;
+    border: 1px solid #cccccc63;
+    border-radius: -pxToRem(5);
+    padding-left: -pxToRem(5);
+    color: #333 !important;
+}
