@@ -10,12 +10,14 @@ import vs from 'vue-resource';
 
 import checkboxGroup from './shared/checkbox-group'
 import checkbox from './shared/checkbox'
+import model from './shared/model'
 
 Vue.use(vs);
 
 const cxComponents = {
     cxCheckboxGroup: checkboxGroup,
-    cxCheckbox: checkbox
+    cxCheckbox: checkbox,
+    cxModel:model
 }
 
 Object.keys(cxComponents).forEach(key => {

@@ -30,6 +30,7 @@
 <script>
 
     export default {
+        name: "cx-model",
         props:{
             modes:{
                 type:Object
@@ -55,9 +56,7 @@
             }
 
         },
-        created () {
-            console.log(this.modes)
-        }
+        created () {}
     }
 </script>
 <style lang="stylus" scoped>

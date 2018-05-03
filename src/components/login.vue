@@ -9,6 +9,15 @@
              大使馆干啥的
             </div>
         </Model>
+        <div>
+
+            <div ref='sliderBox' class="slider-box">
+                <div ref='sliderW' class="slider-w" style=""></div>
+                <div ref='sliderDrg' class="slider-drg" style=""></div>
+            </div>
+        </div>
+
+
     </div>
 </template>
 
@@ -41,21 +50,76 @@
           isVisible:false
       }
     },
-      methods:{
-        login() {
-            this.$router.push('/home')
-        },
-        showModel() {
-            this.isVisible = true;
-        },
-          colsModel(item){
-            console.log(item)
-            this.isVisible = item.isOk;
-          }
+    methods:{
+            login() {
+                this.$router.push('/home')
+            },
+            showModel() {
+                this.isVisible = true;
+            },
+            colsModel(item){
+                console.log(item)
+                this.isVisible = item.isOk;
+            },
+        darg(dom) {
+           let start = 0,
+                move = 0,
+                isMove = false;
+            dom.addEventListener('touchstart', e => {
+                start = e.changedTouches[0].clientX;
+                this.$refs.sliderW.style.width = start + 'px';
+                console.log(start)
+            })
+            dom.addEventListener('touchmove', e => {
+                move =  e.changedTouches[0].clientX - start ;
+                isMove = true;
+                console.log('move',move);
+                this.$refs.sliderW.style.width = move + 'px';
+                dom.style.left = move  + 'px';
+            })
+            dom.addEventListener('touchend', e => {
+                this.$refs.sliderW.style.width = move + 'px';
+                dom.style.left = move  + 'px';
+            })
+        }
+
+      },
+      mounted() {
+         this.darg(this.$refs.sliderDrg)
+      },
+      created() {
 
       }
 }
 </script>
 <style lang="stylus" scoped>
+.slider-box {
+    width: 100%;
+    height: 3px;
+    border-radius: 10px;
+    background: #e9eaec;
+    display: inline-block;
+    position relative;
+    .slider-drg {
+        position absolute;
+        left: 0px;
+        top: 0;
+        transform translateY(-50%)
+        width: 10px;
+        height: 40px;
+        background: red;
+        z-index 10;
 
+    }
+    .slider-w {
+        position absolute;
+        left: 0px;
+        top: 0px;
+        height: 100%;
+        z-index 9;
+        border-radius: 10px;
+        background:#57a3f3 ;
+        display: inline-block;
+    }
+}
 </style>

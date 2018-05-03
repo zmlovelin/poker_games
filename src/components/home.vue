@@ -67,14 +67,14 @@
             <!--<div class="foot-icon"></div>-->
         </div>
 
-        <cx-modal :modes="modes" :isVisible="isVisible" @colsModel="colsModel">
+        <cx-model :modes="modes" :isVisible="isVisible" @colsModel="colsModel">
             <div slot="content">
                 <div  class="clearfix" style="margin: .2rem 0;color: #333;">
                     <div class="fl">
                         <span>房间人数：</span>
                     </div>
                     <div class="fl">
-                        <cx-checkbox-group v-model="personNum" @on-change="change" type="radio">
+                        <cx-checkbox-group v-model="personNum" @on-change="changesPerson" type="radio">
                             <cx-checkbox label="9">
                                 <span>9人</span>
                             </cx-checkbox>
@@ -87,7 +87,7 @@
                         <span>级别：</span>
                     </div>
                     <div class="fl">
-                        <cx-checkbox-group v-model="radioModel" @on-change="change" type="radio">
+                        <cx-checkbox-group v-model="roomLevel" @on-change="changeScore" type="radio">
                             <cx-checkbox v-for="(item,index) in roomDj" :key="index" :label="item.level">
                                 <span>{{item.name}}</span>
                             </cx-checkbox>
@@ -101,7 +101,7 @@
                         <span>最低下注分数：</span>
                     </div>
                     <div class="fl">
-                        <span>{{radioModel}}</span>
+                        <span>{{minScore}}</span>
                     </div>
                 </div>
                 <div  class="clearfix" style="margin: .2rem 0;color: #333;">
@@ -109,7 +109,7 @@
                         <span>最高下注分数：</span>
                     </div>
                     <div class="fl">
-                        <span>{{radioModel}}</span>
+                        <span>{{maxScore}}</span>
                     </div>
                 </div>
                 <!--房间私密-->
@@ -118,33 +118,34 @@
                         <span>私密房间：</span>
                     </div>
                     <div class="fl">
-                        <cx-checkbox-group v-model="radioModel" type="radio">
-                            <cx-checkbox label="zs">
+                        <cx-checkbox-group v-model="passwordRoom" type="radio" @on-change="changePassword">
+                            <cx-checkbox label="1">
                                 <span>是</span>
                             </cx-checkbox>
-                            <cx-checkbox label="1">
+                            <cx-checkbox label="0">
                                 <span>否</span>
                             </cx-checkbox>
                         </cx-checkbox-group>
                     </div>
                 </div>
             </div>
-        </cx-modal>
+        </cx-model>
     </div>
 </template>
 
 <script>
-    import modal from '../shared/model'
     export default {
         data() {
             return {
                 userInfo:Object,
                 roomDj:Object,
-                personNum: '9',
                 saveRooms:Object,
-                name:null,
-                models: ['cj', 'zj'],
-                radioModel: '1',
+                personNum: '9',
+                roomLevel: '1',
+                passwordRoom:'0',
+                maxScore:null,
+                minScore:null,
+                extractScore:null,
                 modes:{
                     title:'创建房间',
                     btnCancelText:'取  消',
@@ -155,81 +156,63 @@
                         alert('点击了取消')
                     },
                     onOk:()=> {
-                        // alert('点击了确定')
-                        this.saveRoom();
+                        let body = {
+                            room:null,
+                            roomNum:9,
+                            minScore:100,
+                            maxScore:1000,
+                            roomLevel:2,
+                            roomLevelName:'hhh',
+                            account:17,
+                            createBy:1,
+                            isPrivate:1,
+                            password:null
+                        }
+                        this.$userService.saveRoomInfo(body).then(res=>{
+                            console.log(res)
+                        })
+
                     }
 
                 },
                 isVisible:false
             }
         },
-        components: {
-            'cx-modal': modal
-        },
+
         methods: {
             handleClick() {
                 this.$router.push('/game')
             },
-            getUserInfo() {
-                let url ="api/user/getUserInfo";
-                let body = {
-                    account : "zhangsan",
-                }
-                this.$http.post(url,body).then(success=>{
-                    this.userInfo = JSON.parse(success.body.data);
-                   console.log(JSON.parse(success.body.data));
-                },error=>{
-
-                })
-            },
-            getRoomdj() {
-                let url ="api/user/getRoomLevel";
-                let body = {
-                    account : "17386040468",
-                }
-                this.$http.post(url,body).then(success=>{
-                    this.roomDj = JSON.parse(success.body.data);
-                    console.log(this.roomDj);
-                },error=>{
-
-                })
-            },
-
-            saveRoom() {
-                let url ="api/user/saveRoomInfo";
-                let body = {
-                    room:null,
-                    roomNum:9,
-                    minScore:100,
-                    maxScore:1000,
-                    roomLevel:2,
-                    roomLevelName:'hhh',
-                    account:17,
-                    createBy:1,
-                    isPrivate:1,
-                    password:null
-                }
-                this.$http.post(url,body).then(success=>{
-                    this.saveRooms = JSON.parse(success.body.data);
-                    console.log(success.body);
-                },error=>{
-
-                })
-            },
-
-            showStartRoom() {
-                this.isVisible = true;
-                this.getRoomdj();
-            },
             colsModel(item){
                 this.isVisible = item.isOk;
             },
-            change(data) {
-                console.log(data);
+            showStartRoom() {
+                this.isVisible = true;
+                this.$userService.getRoomLevel("17386040468").then(res=>{
+                    this.roomDj = res;
+                    this.minScore = this.roomDj[0].minScore;
+                    this.maxScore = this.roomDj[0].maxScore;
+                    this.extractScore = this.roomDj[0].extractScore;
+                })
+            },
+            changesPerson(i) {
+
+            },
+            changeScore(i) {
+                this.minScore = this.roomDj[i-1].minScore;
+                this.maxScore = this.roomDj[i-1].maxScore;
+            },
+            changePassword(i) {
+
             }
+
+
         },
         created() {
-            this.getUserInfo();
+            //获取首页信息
+            this.$userService.getUserInfo(123).then(res => {
+                this.userInfo = res;
+            });
         }
     }
 </script>

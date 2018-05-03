@@ -27,7 +27,43 @@ export default {
         return new Promise((resolve, reject) => {
             Vue.http.post(`${prefix}/getUserInfo`, {account}).then(result => {
                 if (result.body.code === 0) {
-                    resolve(JSON.parse(result.body.user));
+                    resolve(JSON.parse(result.body.data));
+                } else {
+                    reject(result.body);
+                }
+            }).catch(error => {
+                alert(error);
+            })
+        })
+    },
+    /**
+     * 获取房间等级 以及分数
+     * @param account
+     * @returns {Promise<any>}
+     */
+    getRoomLevel(account) {
+        return new Promise((resolve, reject) => {
+            Vue.http.post(`${prefix}/getRoomLevel`, {account}).then(result => {
+                if (result.body.code === 0) {
+                    resolve(JSON.parse(result.body.data));
+                } else {
+                    reject(result.body);
+                }
+            }).catch(error => {
+                alert(error);
+            })
+        })
+    },
+    /**
+     * 保存所选的房间信息
+     * @param body
+     * @returns {Promise<any>}
+     */
+    saveRoomInfo(body) {
+        return new Promise((resolve, reject) => {
+            Vue.http.post(`${prefix}/saveRoomInfo`, body).then(result => {
+                if (result.body.code === 0) {
+                    resolve(JSON.parse(result.body.data));
                 } else {
                     reject(result.body);
                 }
