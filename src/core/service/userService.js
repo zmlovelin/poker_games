@@ -7,8 +7,8 @@ export default {
     getLoginUser(userCode, password) {
         let data = {
             id: '123awasd',
-            name: 'guanyj',
-            money: 123,
+            realname: 'guanyj',
+            score: 123,
             pokes: [23, 14, 4],
             left: USER_PADDING,
             top: FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT
@@ -72,6 +72,27 @@ export default {
             })
         })
     },
+
+    /**
+     * 获取房间信息以及房间人员信息
+     * @param roomId
+     * @returns {Promise<any>}
+     */
+    getRoom(roomId) {
+        return new Promise((resolve, reject) => {
+            Vue.http.post(`${prefix}/getRoom`, {roomId}).then(result => {
+                if (result.body.code === 0) {
+                    resolve(JSON.parse(result.body.data));
+                } else {
+                    reject(result.body);
+                }
+            }).catch(error => {
+                alert(error);
+            })
+        })
+    },
+
+
     /**
      * 游戏开局
      * @param roomId

@@ -153,6 +153,7 @@
                 userInfo:Object,
                 roomDj:Object,
                 saveRooms:Object,
+                account:null,
                 roomLevelName:'初级房',
                 personNum: '9',
                 roomLevel: '1',
@@ -163,6 +164,7 @@
                 maxScore:null,
                 minScore:null,
                 extractScore:null,
+                roomId:null,
                 modes:{
                     title:'创建房间',
                     btnCancelText:'取  消',
@@ -180,13 +182,15 @@
                             maxScore:this.maxScore,
                             roomLevel:this.levelRoom,
                             roomLevelName:this.roomLevelName,
-                            account:this.userInfo.mobile,
-                            createBy:this.userInfo.id,
+                            account:this.account,
+                            createBy:this.createBy,
                             isPrivate:this.passwordRoom,
                             password:this.roomPassword
                         }
                         this.$userService.saveRoomInfo(body).then(res=>{
                             console.log(res)
+                            this.roomId = res.id;
+                            this.$router.push('/game/'+ this.roomId);
                         })
 
                     }
@@ -205,11 +209,13 @@
             },
             showStartRoom() {
                 this.isVisible = true;
-                this.$userService.getRoomLevel("17386040468").then(res=>{
+                this.$userService.getRoomLevel('zhangsan').then(res=>{
+                    console.log(res)
                     this.roomDj = res;
                     this.minScore = this.roomDj[0].minScore;
                     this.maxScore = this.roomDj[0].maxScore;
                     this.extractScore = this.roomDj[0].extractScore;
+
                 })
             },
             changesPerson(i) {
@@ -226,6 +232,7 @@
                 }
                 this.minScore = this.roomDj[i-1].minScore;
                 this.maxScore = this.roomDj[i-1].maxScore;
+
             },
             changePassword(i) {
                 if( i === '2' ){
@@ -241,6 +248,8 @@
             //获取首页信息
             this.$userService.getUserInfo(123).then(res => {
                 this.userInfo = res;
+                this.account = res.account;
+                this.createBy = res.id;
                 console.log(res)
             });
         }

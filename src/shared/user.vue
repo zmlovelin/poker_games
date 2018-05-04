@@ -1,10 +1,10 @@
 <template>
     <div v-if="user" class="user-wrap" :style="wrapStyle">
         <span class="user-ib user-text" :style="userTextStyle">
-            {{user.name}}
+            {{user.realname}}
         </span>
         <img class="user-ib user-img" src="../assets/images/user.jpeg" :width="imgWidth" alt="">
-        <em class="user-ib user-text user-money" :style="userTextStyle">{{user.money}}</em>
+        <em class="user-ib user-text user-money" :style="userTextStyle">{{user.score}}</em>
     </div>
 </template>
 
