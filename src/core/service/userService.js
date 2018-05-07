@@ -114,5 +114,18 @@ export default {
         })
     },
 
+    getRoomInfo(roomId) {
+        return new Promise((resolve, reject) => {
+            Vue.http.post(`${prefix}/getRoom`, {roomId}).then(result => {
+                if (result.body.code === 0) {
+                    resolve(result.body);
+                } else {
+                    reject(result.body);
+                }
+            }).catch(error => {
+                alert(error);
+            })
+        })
+    }
 
 }

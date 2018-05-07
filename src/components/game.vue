@@ -1,7 +1,12 @@
 <template>
     <div class="game-wrap">
-        <pk-user v-for="(user, index) in users" :key="index" :user="user" :position="{left: user.left, top: user.top}"></pk-user>
-        <pk-user v-if="loginUser" :user="loginUser" :position="{left: loginUser.left, top: loginUser.top}"></pk-user>
+        <pk-user v-for="(user, index) in users"
+                 :key="index"
+                 :user="user"
+                 :position="{left: user.left, top: user.top}"></pk-user>
+        <pk-user v-if="loginUser"
+                 :user="loginUser"
+                 :position="{left: loginUser.left, top: loginUser.top}"></pk-user>
         <template v-for="(user, uin) in users">
             <pk-poke v-for="(poke, index) in user.pokes"
                      ref="poke"
@@ -27,7 +32,7 @@
     import anime from 'animejs';
     import {
         POKE_WIDTH, USER_WIDTH, FIRST_USER_MARGIN_TOP, USER_PADDING,
-        POKE_TO_USER, POKE_SPACE, USER_AREA_HEIGHT, DRAG_BAR_HEIGHT,setUserAreaHeight
+        POKE_TO_USER, POKE_SPACE, USER_AREA_HEIGHT, setUserAreaHeight
     } from '../shared/config'
 
     export default {
@@ -41,13 +46,20 @@
                 users: [],
                 loginUser: null,
                 timeline: null,
-                aaaa: null,
-                roomId:this.$route.params.roomId,
+                aaaa: null
             }
         },
         created() {
             this.aaaa = document.body.clientHeight;
             setUserAreaHeight(this.aaaa);
+            let roomId = this.$route.query.roomId;
+            // 获取房间信息
+            this.$userService.getRoomInfo(roomId).then(result => {
+                console.log(result);
+                this.$userService.beginGame(roomId, 11, 22).then(res => {
+                    console.log(res);
+                })
+            });
             // 请求数据
             let values = [], users = [];
             for (let i = 0; i < 42; i ++) {
@@ -55,8 +67,8 @@
             }
             for (let i = 0; i < 8; i++) {
                 let user = {
-                    realname: `name${i}`,
-                    score: Math.floor(Math.random() * 200),
+                    name: `name${i}`,
+                    money: Math.floor(Math.random() * 200),
                     pokes: [],
                     top: FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * (i % 4)
                 };
@@ -80,25 +92,7 @@
                 users.push(user);
             }
             this.users = users;
-            //获取创建房间的信息  到时候轮询这个接口就可以了
-            this.$userService.getRoom(this.roomId).then(res => {
-                console.log(res)
-                this.loginUser = res.wxinUser;
-                this.users = res.wxinUserList;
-                this.loginUser["left"] = USER_PADDING;
-                this.loginUser["top"] = FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT;
 
-            })
-
-            // this.$userService.getUserInfo(123).then(res => {
-            //     console.log(res);
-            // });
-            // this.$userService.beginGame(123, 223, 555, 666).then(res => {
-            //     console.log(res);
-            // });
-            // this.$userService.getLoginUser('guanyj', '123').then(result => {
-            //     this.loginUser = result.data;
-            // })
         },
         methods: {
             fp() {

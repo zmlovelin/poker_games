@@ -30,7 +30,7 @@ export default new Router({
         },
     },
     {
-      path: '/game/:roomId',
+      path: '/game',
       component: game,
         meta: {
             title: '游戏中心'
