@@ -237,10 +237,10 @@
             changePassword(i) {
                 if( i === '2' ){
                     this.isPassword = true;
-                    this.passwordRoom = parseInt(i);
+                    this.passwordRoom = i;
                 }else {
                     this.isPassword = false;
-                    this.passwordRoom = parseInt(i);
+                    this.passwordRoom = i;
                 }
             }
         },
