@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '../components/login'
+import account from '../components/account'
 import home from '../components/home';
 import game from '../components/game';
 
@@ -19,8 +20,15 @@ export default new Router({
       path: '/login',
       component: Login,
         meta: {
-            title: '微信授权'
+            title: '账号登录'
         },
+    },
+    {
+      path: '/account',
+      component: account,
+      meta: {
+          title: '账号注册'
+      },
     },
     {
       path: '/home',

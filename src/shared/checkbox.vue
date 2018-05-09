@@ -68,7 +68,7 @@
         margin-right 8px
         .cx-checkbox-checked {
             .cx-checkbox-inner {
-                background url("../assets/images/comp/checkbox-checked.png")
+                background url("../assets/images/comp/checkbox-checked.png") no-repeat;
                 display inline-block
                 height 20px
                 width 20px
@@ -77,7 +77,7 @@
         }
         .cx-radio-checked {
             .cx-checkbox-inner {
-                background url("../assets/images/comp/radio-checked.png")
+                background url("../assets/images/comp/radio-checked.png") no-repeat;
                 display inline-block
                 height 20px
                 width 20px
@@ -85,7 +85,7 @@
             }
         }
         .cx-checkbox {
-            background url("../assets/images/comp/radio-bg.png")
+            background url("../assets/images/comp/radio-bg.png") no-repeat;
             background-size 20px 18px
             height 20px
             width 20px

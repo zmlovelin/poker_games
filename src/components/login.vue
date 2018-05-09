@@ -1,37 +1,63 @@
 <template>
-    <div>
-        <div @click="login()">
-            打野
-        </div>
-        <div @click="showModel">中单</div>
-        <Model :modes="modes" :isVisible="isVisible" @colsModel="colsModel">
-            <div slot="content">
-             大使馆干啥的
-            </div>
-        </Model>
-        <div>
-
-            <div ref='sliderBox' class="slider-box">
-                <div ref='sliderW' class="slider-w" style=""></div>
-                <div ref='sliderDrg' class="slider-drg" style=""></div>
-            </div>
+    <div class="login-bg">
+        <!--  logo区-->
+        <!--<div class="logo-header">-->
+            <!--<div class="logo-img">-->
+                <!--<img src="" class="img">-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="main-pic">
+            <a href="javascript:;" class="main-icon">
+                <img src="../assets/images/login_icon.png" class="img" style="border-radius:50%;">
+            </a>
         </div>
 
+        <div class="logo-info">
+                <div class="user-name">
+                    <span v-show="showMsg" class="msg">{{msg}}</span>
+                </div>
 
+                <div class="user-name">
+                    <input type="text" @focus="inputFocus" placeholder="请输入账号" v-model="username"/>
+                </div>
+
+                <div class="user-name">
+                    <input type="password" @focus="inputFocus" placeholder="请输入密码" v-model="password"/>
+                </div>
+
+                <div style="font-size: .2rem;
+                padding: .2rem .2rem 0;
+                color:#e63636;position: relative;z-index: 100" class="fr" @click="register">注册账号</div>
+                <!--<div class="user-name clearfix">-->
+                    <!--<div class="usre-img fl wx-img-width">-->
+                        <!--<input type="text" maxlength="4" v-model="kaptcha" placeholder="验证码"/>-->
+                    <!--</div>-->
+                    <!--<div class="usre-img fl wx-img-height" @click="refreshclick">点击刷新</div>-->
+                    <!--<div class="usre-img fl" @click="refreshclick">-->
+                        <!--<img src="codeImg" alt="">-->
+                        <!--&lt;!&ndash; <img src="http://10.130.207.130:8082/portal/verifingCode/kaptcha.do?time=1509690250234" alt=""> &ndash;&gt;-->
+
+                    <!--</div>-->
+                <!--</div>-->
+
+                <div class="user-name">
+                    <div class="btn" @click="login">登&nbsp;&nbsp;录</div>
+                </div>
+
+        </div>
     </div>
 </template>
 
 <script>
-    import Model from '../shared/model';
-    import Radio from '../shared/radio';
   export default {
-      components:{
-          Model,
-          Radio
-      },
     data () {
       return {
         msg: '授权',
+          showMsg: false,
+          msg: '',
+          username: '',
+          password: '',
+          data:{},
           modes:{
             title:'创建房间',
             btnCancelText:'取消',
@@ -51,6 +77,9 @@
       }
     },
     methods:{
+            register() {
+                this.$router.push('/account')
+            },
             login() {
                 this.$router.push('/home')
             },
@@ -61,32 +90,14 @@
                 console.log(item)
                 this.isVisible = item.isOk;
             },
-        darg(dom) {
-           let start = 0,
-                move = 0,
-                isMove = false;
-            dom.addEventListener('touchstart', e => {
-                start = e.changedTouches[0].clientX;
-                this.$refs.sliderW.style.width = start + 'px';
-                console.log(start)
-            })
-            dom.addEventListener('touchmove', e => {
-                move =  e.changedTouches[0].clientX - start ;
-                isMove = true;
-                console.log('move',move);
-                this.$refs.sliderW.style.width = move + 'px';
-                dom.style.left = move  + 'px';
-            })
-            dom.addEventListener('touchend', e => {
-                this.$refs.sliderW.style.width = move + 'px';
-                dom.style.left = move  + 'px';
-            })
-        }
+            //获得焦点-----------------------------------
+            inputFocus(){
+                this.showMsg = false;
+            },
+
 
       },
-      mounted() {
-         this.darg(this.$refs.sliderDrg)
-      },
+
       created() {
 
       }

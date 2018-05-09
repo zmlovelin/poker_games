@@ -65,6 +65,7 @@ html,body{
     height: 100%;
     font-family:  MicroSoft YaHei, sans-serif,Helvetica;
     color: #fff;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
 }
 
 
