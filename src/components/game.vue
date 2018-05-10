@@ -47,21 +47,29 @@
                 loginUser: null,
                 timeline: null,
                 aaaa: null,
-                roomInfo: null
+                roomInfo: null,
+                roomId:null,
+                account:null
             }
         },
         created() {
             this.aaaa = document.body.clientHeight;
             setUserAreaHeight(this.aaaa);
-
             //获取home保存后的所有信息
             this.roomInfo = this.$route.query;
-            let roomData = JSON.parse(this.roomInfo.data)
+            if(this.roomInfo.data) { // 创建房间的逻辑
+                var roomData = JSON.parse(this.roomInfo.data);
+                this.roomId = roomData.id;
+                this.account = roomData.account
+            }else { //快速加入房间的逻辑
+                this.roomId = this.roomInfo.id;
+                this.account = this.roomInfo.account
+            }
             // 获取房间信息
             let body = {
-                roomId:roomData.id, //房间id
-                account:roomData.account, //当前用户信息
-                gameInfoId:this.roomInfo.gameInfoId //游戏id
+                roomId:this.roomId, //房间id
+                account:this.account, //当前用户信息
+                gameInfoId:this.roomInfo.gameInfoId || null //游戏id
             }
             this.$userService.getRoom(body).then(res => {
                 console.log(res);

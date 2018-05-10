@@ -72,6 +72,24 @@ export default {
             })
         })
     },
+    /**
+     * 快速加入房间
+     * @param account
+     * @returns {Promise<any>}
+     */
+    qkJoinRoom(account) {
+        return new Promise((resolve, reject) => {
+            Vue.http.post(`${prefix}/saveRoomInfo`, {account}).then(result => {
+                if (result.body.code === 0) {
+                    resolve(JSON.parse(result.body.data));
+                } else {
+                    reject(result.body);
+                }
+            }).catch(error => {
+                alert(error);
+            })
+        })
+    },
 
     /**
      * 获取房间信息以及房间人员信息

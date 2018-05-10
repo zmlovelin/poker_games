@@ -2,7 +2,7 @@
     <div class="home-bg">
         <div class="pg-home-header clearfix">
             <div class="header-left fl">
-                <div class="header-pic fl" @click="handleClick">
+                <div class="header-pic fl">
                     <img src="../assets/images/pq-logo.png" class= "pic-auto" alt="">
                 </div>
                 <div  style="overflow:hidden;padding-left: .1rem;height: 100%;position: relative">
@@ -39,13 +39,13 @@
                 </div>
             </div>
 
-            <div class="con-tow">
+            <div class="con-tow" @click="quickJoinRoom()">
                 <div class="tow-con">
                     <div class="tow-pic fl">
 
                     </div>
                     <div class="people-text">
-                        <div class="text-span">快速匹配</div>
+                        <div class="text-span">快速加入</div>
                     </div>
                 </div>
             </div>
@@ -202,9 +202,6 @@
         },
 
         methods: {
-            handleClick() {
-                this.$router.push('/game')
-            },
             colsModel(item){
                 this.isVisible = item.isOk;
             },
@@ -243,6 +240,12 @@
                     this.isPassword = false;
                     this.passwordRoom = i;
                 }
+            },
+            quickJoinRoom() {
+                this.$userService.qkJoinRoom(this.account).then(res=>{
+                    console.log(res)
+                    this.$router.push({path:'/game',query:res})
+                })
             }
         },
         created() {
