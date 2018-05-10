@@ -190,7 +190,8 @@
                         this.$userService.saveRoomInfo(body).then(res=>{
                             console.log(res)
                             this.roomId = res.id;
-                            this.$router.push('/game/'+ this.roomId);
+                            // this.$router.push('/game/'+ this.roomId);
+                            this.$router.push({path:'/game',query:res})
                         })
 
                     }

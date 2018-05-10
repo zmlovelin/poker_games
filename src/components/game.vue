@@ -32,7 +32,7 @@
     import anime from 'animejs';
     import {
         POKE_WIDTH, USER_WIDTH, FIRST_USER_MARGIN_TOP, USER_PADDING,
-        POKE_TO_USER, POKE_SPACE, USER_AREA_HEIGHT, setUserAreaHeight
+        POKE_TO_USER, POKE_SPACE, USER_AREA_HEIGHT, setUserAreaHeight,DRAG_BAR_HEIGHT
     } from '../shared/config'
 
     export default {
@@ -46,19 +46,33 @@
                 users: [],
                 loginUser: null,
                 timeline: null,
-                aaaa: null
+                aaaa: null,
+                roomInfo: null
             }
         },
         created() {
             this.aaaa = document.body.clientHeight;
             setUserAreaHeight(this.aaaa);
-            let roomId = this.$route.query.roomId;
+
+            //获取home保存后的所有信息
+            this.roomInfo = this.$route.query;
+            let roomData = JSON.parse(this.roomInfo.data)
             // 获取房间信息
-            this.$userService.getRoomInfo(roomId).then(result => {
-                console.log(result);
-                this.$userService.beginGame(roomId, 11, 22).then(res => {
-                    console.log(res);
-                })
+            let body = {
+                roomId:roomData.id, //房间id
+                account:roomData.account, //当前用户信息
+                gameInfoId:this.roomInfo.gameInfoId //游戏id
+            }
+            this.$userService.getRoom(body).then(res => {
+                console.log(res);
+                //自己的信息
+                this.loginUser = res.room.wxinUser;
+                //其他被邀请的玩家的信息
+                this.users = res.room.wxinUserList;
+                //设置自己所在的位置
+                this.loginUser["left"] = USER_PADDING;
+                this.loginUser["top"] = FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT;
+
             });
             // 请求数据
             let values = [], users = [];
@@ -67,8 +81,8 @@
             }
             for (let i = 0; i < 8; i++) {
                 let user = {
-                    name: `name${i}`,
-                    money: Math.floor(Math.random() * 200),
+                    realname: `name${i}`,
+                    score: Math.floor(Math.random() * 200),
                     pokes: [],
                     top: FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * (i % 4)
                 };

@@ -63,7 +63,7 @@ export default {
         return new Promise((resolve, reject) => {
             Vue.http.post(`${prefix}/saveRoomInfo`, body).then(result => {
                 if (result.body.code === 0) {
-                    resolve(JSON.parse(result.body.data));
+                    resolve(result.body);
                 } else {
                     reject(result.body);
                 }
@@ -78,9 +78,9 @@ export default {
      * @param roomId
      * @returns {Promise<any>}
      */
-    getRoom(roomId) {
+    getRoom(body) {
         return new Promise((resolve, reject) => {
-            Vue.http.post(`${prefix}/getRoom`, {roomId}).then(result => {
+            Vue.http.post(`${prefix}/getRoom`, body).then(result => {
                 if (result.body.code === 0) {
                     resolve(JSON.parse(result.body.data));
                 } else {
@@ -114,18 +114,5 @@ export default {
         })
     },
 
-    getRoomInfo(roomId) {
-        return new Promise((resolve, reject) => {
-            Vue.http.post(`${prefix}/getRoom`, {roomId}).then(result => {
-                if (result.body.code === 0) {
-                    resolve(result.body);
-                } else {
-                    reject(result.body);
-                }
-            }).catch(error => {
-                alert(error);
-            })
-        })
-    }
 
 }
