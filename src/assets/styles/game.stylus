@@ -16,5 +16,20 @@
         background url("../images/gamebar.png")
         background-size 320px 38px
         font-size 12px
+        .qp-item {
+            position absolute
+            color: #fff;
+            border: 1px solid #f9f9f9;
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            font-size: 12px;
+            border-radius: 99px;
+            line-height: 36px;
+            transform: scale(0.7);
+            text-align: center;
+            cursor pointer
+            outline none
+        }
     }
 }

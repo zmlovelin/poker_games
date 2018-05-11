@@ -109,7 +109,24 @@ export default {
             })
         })
     },
-
+    /**
+     * 轮询
+     * @param data
+     * @returns {Promise<any>}
+     */
+    refreshGameInfo(data) {
+        return new Promise((resolve, reject) => {
+            Vue.http.post(`${prefix}/refreshGameInfo`, {data}).then(result => {
+                if (result.body.code === 0) {
+                    resolve(JSON.parse(result.body.data));
+                } else {
+                    reject(result.body);
+                }
+            }).catch(error => {
+                alert(error);
+            })
+        })
+    },
 
     /**
      * 游戏开局

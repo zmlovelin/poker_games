@@ -3,10 +3,20 @@
         <pk-user v-for="(user, index) in users"
                  :key="index"
                  :user="user"
-                 :position="{left: user.left, top: user.top}"></pk-user>
+                 :createdBy="createBy"
+                 :position="{left: user.left, top: user.top}">
+
+        </pk-user>
         <pk-user v-if="loginUser"
                  :user="loginUser"
-                 :position="{left: loginUser.left, top: loginUser.top}"></pk-user>
+                 :createdBy="createBy"
+                 :position="{left: loginUser.left, top: loginUser.top}">
+
+        </pk-user>
+        <button type="button"
+                v-if="loginUser && !loginUser.prepared"
+                style="position: absolute;left: 50%;"
+                :style="{top: loginUser.top + 'px'}" @click="currentUserPrepare">准&nbsp;备</button>
         <template v-for="(user, uin) in users">
             <pk-poke v-for="(poke, index) in user.pokes"
                      ref="poke"
@@ -47,6 +57,7 @@
                 loginUser: null,
                 timeline: null,
                 aaaa: null,
+                createBy: null,
                 roomInfo: null,
                 roomId:null,
                 account:null
@@ -58,7 +69,7 @@
             //获取home保存后的所有信息
             this.roomInfo = this.$route.query;
             if(this.roomInfo.data) { // 创建房间的逻辑
-                var roomData = JSON.parse(this.roomInfo.data);
+                let roomData = JSON.parse(this.roomInfo.data);
                 this.roomId = roomData.id;
                 this.account = roomData.account
             }else { //快速加入房间的逻辑
@@ -73,14 +84,20 @@
             }
             this.$userService.getRoom(body).then(res => {
                 console.log(res);
+                this.createBy = res.room.createBy;
                 //自己的信息
                 this.loginUser = res.room.wxinUser;
                 //其他被邀请的玩家的信息
                 this.users = res.room.wxinUserList;
                 //设置自己所在的位置
-                this.loginUser["left"] = USER_PADDING;
-                this.loginUser["top"] = FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT;
+                this.loginUser.left = USER_PADDING;
+                this.loginUser.top = FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT;
 
+                if (res.player) {
+                    this.$userService.refreshGameInfo(res).then(result => {
+                        console.log('refreshGameInfo', result);
+                    })
+                }
             });
             // 请求数据
             let values = [], users = [];
@@ -114,6 +131,9 @@
                 users.push(user);
             }
             this.users = users;
+
+        },
+        computed: {
 
         },
         methods: {
@@ -152,6 +172,12 @@
                 this.$refs.poke.forEach(item => {
                     item.isShow = !item.isShow;
                 })
+            },
+            /**
+             * 点击准备
+             */
+            currentUserPrepare() {
+                this.loginUser.prepared = true;
             },
             px2rem(px) {
                 return px / 100 * 2 + 'rem';
