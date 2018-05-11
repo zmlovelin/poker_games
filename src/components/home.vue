@@ -166,6 +166,7 @@
                 minScore:null,
                 extractScore:null,
                 roomId:null,
+                gameInfoId:null,
                 modes:{
                     title:'创建房间',
                     btnCancelText:'取  消',
@@ -191,11 +192,9 @@
                         //创建房间
                         this.$userService.saveRoomInfo(body).then(res=>{
                             console.log(res)
-                            //服务传值
-                            this.commitRoomInfo(res);
-                            this.roomId = res.id;
-                            // this.$router.push('/game/'+ this.roomId);
-                            this.$router.push('/game')
+                            this.roomId = res.room.id;
+                            this.gameInfoId = res.gameInfoId;
+                            this.$router.push('/game/'+ this.account +'/' + this.roomId +'/' + this.gameInfoId);
                         })
 
                     }
@@ -256,20 +255,13 @@
             freeInJoinRoom () {
                 this.$router.push('/roomList');
             },
-            //服务传值
-            ...mapActions({
-                commitRoomInfo: 'roomInfo',
-            })
         },
         created() {
-
             //获取首页信息
             this.$userService.getUserInfo(123).then(res => {
                 this.userInfo = res;
                 this.account = res.account;
                 this.createBy = res.id;
-                console.log(res)
-
             });
         },
 

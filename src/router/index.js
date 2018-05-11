@@ -2,8 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '../components/login'
 import account from '../components/account'
-import home from '../components/home';
-import game from '../components/game';
+import home from '../components/home'
+import game from '../components/game'
+import roomList from '../components/roomList'
 
 Vue.use(Router)
 
@@ -38,11 +39,18 @@ export default new Router({
         },
     },
     {
-      path: '/game',
+      path: '/game/:account/:roomId/:gameInfoId',
       component: game,
         meta: {
             title: '游戏中心'
         },
-    }
+    },
+      {
+          path: '/roomList',
+          component: roomList,
+          meta: {
+              title: '房间列表'
+          },
+      },
   ]
 })
