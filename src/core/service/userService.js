@@ -63,7 +63,7 @@ export default {
         return new Promise((resolve, reject) => {
             Vue.http.post(`${prefix}/saveRoomInfo`, body).then(result => {
                 if (result.body.code === 0) {
-                    resolve(result.body);
+                    resolve(result.body.data);
                 } else {
                     reject(result.body);
                 }
@@ -79,7 +79,26 @@ export default {
      */
     qkJoinRoom(account) {
         return new Promise((resolve, reject) => {
-            Vue.http.post(`${prefix}/saveRoomInfo`, {account}).then(result => {
+            Vue.http.post(`${prefix}/quickJoinRoom`, {account}).then(result => {
+                if (result.body.code === 0) {
+                    resolve(JSON.parse(result.body.data));
+                } else {
+                    reject(result.body);
+                }
+            }).catch(error => {
+                alert(error);
+            })
+        })
+    },
+
+    /**
+     * 自由选择房间之后
+     * @param body
+     * @returns {Promise<any>}
+     */
+    freeJoinRoom(body) {
+        return new Promise((resolve, reject) => {
+            Vue.http.post(`${prefix}/joinRoom`, body).then(result => {
                 if (result.body.code === 0) {
                     resolve(JSON.parse(result.body.data));
                 } else {
@@ -99,6 +118,24 @@ export default {
     getRoom(body) {
         return new Promise((resolve, reject) => {
             Vue.http.post(`${prefix}/getRoom`, body).then(result => {
+                if (result.body.code === 0) {
+                    resolve(JSON.parse(result.body.data));
+                } else {
+                    reject(result.body);
+                }
+            }).catch(error => {
+                alert(error);
+            })
+        })
+    },
+    /**
+     * 获取所有的房间列表
+     * @param body
+     * @returns {Promise<any>}
+     */
+    getRoomList(body) {
+        return new Promise((resolve, reject) => {
+            Vue.http.post(`${prefix}/getRoomList`, body).then(result => {
                 if (result.body.code === 0) {
                     resolve(JSON.parse(result.body.data));
                 } else {

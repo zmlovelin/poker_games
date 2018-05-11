@@ -11,6 +11,7 @@ import vs from 'vue-resource';
 import checkboxGroup from './shared/checkbox-group'
 import checkbox from './shared/checkbox'
 import model from './shared/model'
+import store from './core/store';
 
 Vue.use(vs);
 
@@ -31,8 +32,9 @@ Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    router,
+    store,
+    components: { App },
+    template: '<App/>'
 })

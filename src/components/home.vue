@@ -50,7 +50,7 @@
                 </div>
             </div>
 
-            <div class="con-end">
+            <div class="con-end" @click="freeInJoinRoom()">
                 <div class="end-con">
                     <div class="end-pic fl">
 
@@ -147,6 +147,7 @@
 </template>
 
 <script>
+    import {mapActions} from 'vuex';
     export default {
         data() {
             return {
@@ -187,11 +188,14 @@
                             isPrivate:this.passwordRoom,
                             password:this.roomPassword
                         }
+                        //创建房间
                         this.$userService.saveRoomInfo(body).then(res=>{
                             console.log(res)
+                            //服务传值
+                            this.commitRoomInfo(res);
                             this.roomId = res.id;
                             // this.$router.push('/game/'+ this.roomId);
-                            this.$router.push({path:'/game',query:res})
+                            this.$router.push('/game')
                         })
 
                     }
@@ -241,22 +245,35 @@
                     this.passwordRoom = i;
                 }
             },
+            //快速加入
             quickJoinRoom() {
                 this.$userService.qkJoinRoom(this.account).then(res=>{
                     console.log(res)
                     this.$router.push({path:'/game',query:res})
                 })
-            }
+            },
+            //自由选房
+            freeInJoinRoom () {
+                this.$router.push('/roomList');
+            },
+            //服务传值
+            ...mapActions({
+                commitRoomInfo: 'roomInfo',
+            })
         },
         created() {
+
             //获取首页信息
             this.$userService.getUserInfo(123).then(res => {
                 this.userInfo = res;
                 this.account = res.account;
                 this.createBy = res.id;
                 console.log(res)
+
             });
-        }
+        },
+
+
     }
 </script>
 
