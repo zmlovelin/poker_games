@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="user-name">
-                    <input type="text" @focus="inputFocus" placeholder="请输入账号" v-model="username"/>
+                    <input type="text" @focus="inputFocus" placeholder="请输入账号" v-model="account"/>
                 </div>
 
                 <div class="user-name">
@@ -55,7 +55,7 @@
         msg: '授权',
           showMsg: false,
           msg: '',
-          username: '',
+          account: '',
           password: '',
           data:{},
           modes:{
@@ -81,7 +81,17 @@
                 this.$router.push('/account')
             },
             login() {
-                this.$router.push('/home')
+                let body = {
+                    account:this.account,
+                    password:this.password
+                }
+                this.$userService.getUserRegisterLogin(body).then(res=> {
+                    console.log(res);
+                    this.$router.push('/home')
+                },error=> {
+                    alert(error.msg)
+                })
+
             },
             showModel() {
                 this.isVisible = true;

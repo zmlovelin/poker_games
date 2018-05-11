@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import {FIRST_USER_MARGIN_TOP, USER_AREA_HEIGHT, USER_PADDING, DRAG_BAR_HEIGHT} from "../../shared/config";
 const prefix = '/api/user';
+const prefixUrl = '/api/register'
 export default {
 
 
@@ -15,6 +16,38 @@ export default {
         }
         return new Promise(resolve => {
             resolve({code: 0, data, msg: '请求成功'})
+        })
+    },
+    /**
+     * 注册账号
+     * @param body
+     * @returns {Promise<any>}
+     */
+    getUserRegister (body) {
+        return new Promise((resolve, reject) => {
+            Vue.http.post(`${prefixUrl}/save`, body).then(result => {
+                if (result.body.code === 0) {
+                    resolve(JSON.parse(result.body.data));
+                } else {
+                    reject(result.body);
+                }
+            }).catch(error => {
+                alert(error);
+            })
+        })
+    },
+
+    getUserRegisterLogin (body) {
+        return new Promise((resolve, reject) => {
+            Vue.http.post(`${prefixUrl}/login`, body).then(result => {
+                if (result.body.code === 0) {
+                    resolve(JSON.parse(result.body.data));
+                } else {
+                    reject(result.body);
+                }
+            }).catch(error => {
+                alert(error);
+            })
         })
     },
 

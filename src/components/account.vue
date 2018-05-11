@@ -2,10 +2,10 @@
     <div class="login-bg">
         <div class="logo-info" style="padding-top:2.2rem; ">
             <div class="user-name">
-                <input type="text" @focus="inputFocus" placeholder="请输入昵称" v-model="username"/>
+                <input type="text" @focus="inputFocus" placeholder="请输入昵称" v-model="realname"/>
             </div>
             <div class="user-name">
-                <input type="text" @focus="inputFocus" placeholder="请输入账号" v-model="usernumber"/>
+                <input type="text" @focus="inputFocus" placeholder="请输入账号" v-model="account"/>
             </div>
 
             <div class="user-name">
@@ -13,7 +13,11 @@
             </div>
 
             <div class="user-name">
-                <div class="btn">注&nbsp;&nbsp;册</div>
+                <input type="password" @focus="inputFocus" placeholder="请重复输入密码" v-model="confirmPassword"/>
+            </div>
+
+            <div class="user-name">
+                <div class="btn" @click="getUserRegisterSave()">注&nbsp;&nbsp;册</div>
             </div>
 
         </div>
@@ -24,16 +28,32 @@
     export default {
         data () {
             return {
-                usernumber:'',
-                username: '',
-                password: ''
+                realname:null,
+                account:null,
+                password: null,
+                confirmPassword:null
             }
         },
         methods:{
             //获得焦点-----------------------------------
             inputFocus(){
-                this.showMsg = false;
+                // this.showMsg = false;
             },
+
+            getUserRegisterSave() {
+                let body = {
+                    realname:this.realname,
+                    account:this.account,
+                    password: this.password,
+                    confirmPassword:this.confirmPassword
+                }
+                this.$userService.getUserRegister(body).then(res=> {
+                    console.log(res);
+                    this.$router.push('/login');
+                },error=> {
+                    alert(error.msg)
+                })
+            }
 
         },
 
