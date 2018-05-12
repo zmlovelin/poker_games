@@ -27,7 +27,7 @@ export default {
         return new Promise((resolve, reject) => {
             Vue.http.post(`${prefixUrl}/save`, body).then(result => {
                 if (result.body.code === 0) {
-                    resolve(JSON.parse(result.body.data));
+                    resolve(result.body);
                 } else {
                     reject(result.body);
                 }
@@ -41,7 +41,7 @@ export default {
         return new Promise((resolve, reject) => {
             Vue.http.post(`${prefixUrl}/login`, body).then(result => {
                 if (result.body.code === 0) {
-                    resolve(JSON.parse(result.body.data));
+                    resolve(result.body);
                 } else {
                     reject(result.body);
                 }
@@ -96,7 +96,7 @@ export default {
         return new Promise((resolve, reject) => {
             Vue.http.post(`${prefix}/saveRoomInfo`, body).then(result => {
                 if (result.body.code === 0) {
-                    resolve(result.body.data);
+                    resolve(JSON.parse(result.body.data));
                 } else {
                     reject(result.body);
                 }

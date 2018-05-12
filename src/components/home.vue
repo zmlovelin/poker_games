@@ -9,7 +9,7 @@
                     <div class="pic-name overflows">{{userInfo.realname}}</div>
                     <div class="recharge">
                         <span class="text-cz">{{userInfo.score}}</span>
-                        <img class="img-cz" src="../assets/images/chongzhi.png" alt="">
+                        <!--<img class="img-cz" src="../assets/images/chongzhi.png" alt="">-->
                     </div>
                 </div>
 
@@ -154,7 +154,7 @@
                 userInfo:Object,
                 roomDj:Object,
                 saveRooms:Object,
-                account:null,
+                account:this.$route.params.account,
                 roomLevelName:'初级房',
                 personNum: '9',
                 roomLevel: '1',
@@ -209,8 +209,12 @@
                 this.isVisible = item.isOk;
             },
             showStartRoom() {
+                if(this.userInfo.score === 0) {
+                    alert('对不起，您没有积分，无法创建房间')
+                    return
+                }
                 this.isVisible = true;
-                this.$userService.getRoomLevel('zhangsan').then(res=>{
+                this.$userService.getRoomLevel(this.account).then(res=>{
                     console.log(res)
                     this.roomDj = res;
                     this.minScore = this.roomDj[0].minScore;
@@ -248,17 +252,20 @@
             quickJoinRoom() {
                 this.$userService.qkJoinRoom(this.account).then(res=>{
                     console.log(res)
-                    this.$router.push({path:'/game',query:res})
+                    this.roomId = res.room.id;
+                    this.gameInfoId = res.gameInfoId;
+                    this.$router.push('/game/'+ this.account +'/' + this.roomId +'/' + this.gameInfoId);
                 })
             },
             //自由选房
             freeInJoinRoom () {
-                this.$router.push('/roomList');
+                this.$router.push('/roomList/'+ this.account);
             },
         },
         created() {
             //获取首页信息
-            this.$userService.getUserInfo(123).then(res => {
+            this.$userService.getUserInfo(this.account).then(res => {
+                // console.log(res)
                 this.userInfo = res;
                 this.account = res.account;
                 this.createBy = res.id;

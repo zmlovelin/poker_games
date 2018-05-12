@@ -32,7 +32,7 @@ export default new Router({
       },
     },
     {
-      path: '/home',
+      path: '/home/:account',
       component: home,
         meta: {
             title: '大吃小互娱世界'
@@ -46,7 +46,7 @@ export default new Router({
         },
     },
       {
-          path: '/roomList',
+          path: '/roomList/:account',
           component: roomList,
           meta: {
               title: '房间列表'

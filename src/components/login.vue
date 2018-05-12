@@ -86,8 +86,7 @@
                     password:this.password
                 }
                 this.$userService.getUserRegisterLogin(body).then(res=> {
-                    console.log(res);
-                    this.$router.push('/home')
+                    this.$router.push('/home/'+ this.account)
                 },error=> {
                     alert(error.msg)
                 })
