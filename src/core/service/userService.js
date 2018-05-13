@@ -186,7 +186,7 @@ export default {
      */
     refreshGameInfo(data) {
         return new Promise((resolve, reject) => {
-            Vue.http.post(`${prefix}/refreshGameInfo`, {data}).then(result => {
+            Vue.http.post(`${prefix}/refreshGameInfo`, data).then(result => {
                 if (result.body.code === 0) {
                     resolve(JSON.parse(result.body.data));
                 } else {
@@ -218,6 +218,24 @@ export default {
             })
         })
     },
-
+    /**
+     * 退出游戏
+     * @param body
+     * @returns {Promise<any>}
+     * @constructor
+     */
+    SignOut (body) {
+        return new Promise((resolve, reject) => {
+            Vue.http.post(`${prefix}/quitRoom`, body).then(result => {
+                if (result.body.code === 0) {
+                    resolve(result.body);
+                } else {
+                    reject(result.body);
+                }
+            }).catch(error => {
+                alert(error);
+            })
+        })
+    }
 
 }

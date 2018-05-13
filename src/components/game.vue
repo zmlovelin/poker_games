@@ -59,46 +59,16 @@
                 aaaa: null,
                 createBy: null,
                 roomInfo: null,
-                roomId:null,
-                account:null
+                roomId:this.$route.params.roomId,
+                account:this.$route.params.account,
+                gameInfoId:this.$route.params.gameInfoId
             }
         },
         created() {
             this.aaaa = document.body.clientHeight;
             setUserAreaHeight(this.aaaa);
-            //获取home保存后的所有信息
-            this.roomInfo = this.$route.query;
-            if(this.roomInfo.data) { // 创建房间的逻辑
-                let roomData = JSON.parse(this.roomInfo.data);
-                this.roomId = roomData.id;
-                this.account = roomData.account
-            }else { //快速加入房间的逻辑
-                this.roomId = this.roomInfo.id;
-                this.account = this.roomInfo.account
-            }
-            // 获取房间信息
-            let body = {
-                roomId:this.roomId, //房间id
-                account:this.account, //当前用户信息
-                gameInfoId:this.roomInfo.gameInfoId || null //游戏id
-            }
-            this.$userService.getRoom(body).then(res => {
-                console.log(res);
-                this.createBy = res.room.createBy;
-                //自己的信息
-                this.loginUser = res.room.wxinUser;
-                //其他被邀请的玩家的信息
-                this.users = res.room.wxinUserList;
-                //设置自己所在的位置
-                this.loginUser.left = USER_PADDING;
-                this.loginUser.top = FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT;
-
-                if (res.player) {
-                    this.$userService.refreshGameInfo(res).then(result => {
-                        console.log('refreshGameInfo', result);
-                    })
-                }
-            });
+            //获取房间的人员信息
+            this.getRooms();
             // 请求数据
             let values = [], users = [];
             for (let i = 0; i < 42; i ++) {
@@ -133,10 +103,45 @@
             this.users = users;
 
         },
+        destroyed() {
+            //退出游戏
+            let body = {
+                roomId:this.roomId, //房间id
+                account:this.account, //当前用户信息
+            }
+            this.$userService.SignOut(body).then(res=> {
+                console.log(res)
+            })
+        },
         computed: {
 
         },
         methods: {
+            // 获取房间信息
+            getRooms() {
+                let body = {
+                    roomId:this.roomId, //房间id
+                    account:this.account, //当前用户信息
+                    gameInfoId:this.gameInfoId || null //游戏id
+                }
+                this.$userService.getRoom(body).then(res => {
+                    console.log(res);
+                    this.createBy = res.room.createBy;
+                    //自己的信息
+                    this.loginUser = res.room.wxinUser;
+                    //其他被邀请的玩家的信息
+                    // this.users = res.room.wxinUserList;
+                    //设置自己所在的位置
+                    this.loginUser.left = USER_PADDING;
+                    this.loginUser.top = FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT;
+
+                    if (res.player) {
+                        this.$userService.refreshGameInfo(res).then(result => {
+                            console.log('refreshGameInfo', result);
+                        })
+                    }
+                });
+            },
             fp() {
                 if (this.timeline) {
                     this.timeline.restart()
