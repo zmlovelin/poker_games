@@ -74,7 +74,7 @@
             for (let i = 0; i < 42; i ++) {
                 values.push(i + 1);
             }
-            for (let i = 0; i < 8; i++) {
+            for (let i = 0; i < 9; i++) {
                 let user = {
                     realname: `name${i}`,
                     score: Math.floor(Math.random() * 200),
@@ -83,7 +83,10 @@
                 };
                 if (i < 4) {
                     user.left = USER_PADDING;
-                } else {
+                } else if ( i === 8) {
+                    user.left = USER_PADDING;
+                    user.top = FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT;
+                }else {
                     user.left = 320 - USER_PADDING - USER_WIDTH;
                 }
                 for (let j = 0; j < 3; j++) {
@@ -92,6 +95,9 @@
                         translateY: user.top - 200
                     }
                     if (i < 4) {
+                        poke.translateX = - (145 - USER_PADDING - POKE_TO_USER - USER_WIDTH) + j * POKE_SPACE;
+                    }else if ( i === 8) {
+                        poke.translateY =   USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT - 160;
                         poke.translateX = - (145 - USER_PADDING - POKE_TO_USER - USER_WIDTH) + j * POKE_SPACE;
                     } else {
                         poke.translateX = 320 -USER_PADDING - POKE_TO_USER - USER_WIDTH - 2 * POKE_SPACE - POKE_WIDTH + j * POKE_SPACE - 145;
@@ -174,6 +180,7 @@
                 }
             },
             show() {
+                console.log(this.$refs.poke)
                 this.$refs.poke.forEach(item => {
                     item.isShow = !item.isShow;
                 })
