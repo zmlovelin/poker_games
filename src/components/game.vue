@@ -22,7 +22,10 @@
                      ref="poke"
                      :key="'key' + uin + index"
                      :id="'id' + uin + index"
-                     :value="poke.value">
+                     :value="poke.value"
+                     :hs="poke.hs"
+                     :num="poke.num"
+            >
 
             </pk-poke>
         </template>
@@ -72,7 +75,7 @@
             // 请求数据
             let values = [], users = [];
             for (let i = 0; i < 42; i ++) {
-                values.push(i + 1);
+                // values.push(i + 1);
             }
             for (let i = 0; i < 9; i++) {
                 let user = {
@@ -91,8 +94,10 @@
                 }
                 for (let j = 0; j < 3; j++) {
                     let poke = {
-                        value: values.splice(Math.floor(Math.random() * values.length), 1)[0],
-                        translateY: user.top - 200
+                        // value: values.splice(Math.floor(Math.random() * values.length), 1)[0],
+                        translateY: user.top - 200,
+                        hs: ['b', 'r', 'm', 'f'][Math.floor(Math.random() * 4)],
+                        num: ['3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k', 'a'][Math.floor(Math.random() * 12)],
                     }
                     if (i < 4) {
                         poke.translateX = - (145 - USER_PADDING - POKE_TO_USER - USER_WIDTH) + j * POKE_SPACE;
@@ -180,7 +185,6 @@
                 }
             },
             show() {
-                console.log(this.$refs.poke)
                 this.$refs.poke.forEach(item => {
                     item.isShow = !item.isShow;
                 })

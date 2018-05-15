@@ -1,0 +1,105 @@
+$width = -30px;
+$height = -45px;
+.poke-wrap {
+    border: 0
+    border-radius: 3px;
+    height: 45px;
+    width: 30px;
+    background: url('../images/pokes.jpeg');
+    position: fixed;
+    background-size 389px 225px
+    left: 150px;
+    top: 200px;
+    text-align: left;
+    span {
+        font-size 12px
+    }
+}
+.poke-hidden {
+    background-position-x $width * 2 !important
+    background-position-y $height * 4 !important
+
+}
+
+
+
+plum = $height * 0; // 梅花
+block =  $height * 1; // 方块
+spade =  $height * 2; // 黑桃
+heart =  $height * 3; // 红桃
+
+a = $width * 0;
+two = $width * 1;
+three = $width * 2;
+four = $width * 3
+five = $width * 4
+six = $width * 5
+seven = $width * 6
+eight = $width * 7
+nine = $width * 8
+ten = $width * 9
+j = $width * 10
+q = $width * 11
+k = $width * 12
+
+
+.poke-hs-a-b, .poke-hs-k-b, .poke-hs-q-b, .poke-hs-j-b, .poke-hs-10-b, .poke-hs-9-b, .poke-hs-8-b, .poke-hs-7-b,
+.poke-hs-6-b, .poke-hs-5-b, .poke-hs-4-b, .poke-hs-3-b {
+    background-position-y spade;
+}
+
+.poke-hs-a-r, .poke-hs-k-r, .poke-hs-q-r, .poke-hs-j-r, .poke-hs-10-r, .poke-hs-9-r, .poke-hs-8-r, .poke-hs-7-r,
+.poke-hs-6-r, .poke-hs-5-r, .poke-hs-4-r, .poke-hs-3-r {
+    background-position-y heart;
+}
+
+.poke-hs-a-m, .poke-hs-k-m, .poke-hs-q-m, .poke-hs-j-m, .poke-hs-10-m, .poke-hs-9-m, .poke-hs-8-m, .poke-hs-7-m,
+.poke-hs-6-m, .poke-hs-5-m, .poke-hs-4-m, .poke-hs-3-m {
+    background-position-y plum;
+}
+
+.poke-hs-a-f, .poke-hs-k-f, .poke-hs-q-f, .poke-hs-j-f, .poke-hs-10-f, .poke-hs-9-f, .poke-hs-8-f, .poke-hs-7-f,
+.poke-hs-6-f, .poke-hs-5-f, .poke-hs-4-f, .poke-hs-3-f {
+    background-position-y block;
+}
+
+.poke-hs-a-b, .poke-hs-a-r, .poke-hs-a-m, .poke-hs-a-f  {
+    background-position-x a;
+}
+.poke-hs-k-b, .poke-hs-k-r, .poke-hs-k-m, .poke-hs-k-f  {
+    background-position-x k;
+}
+.poke-hs-q-b, .poke-hs-q-r, .poke-hs-q-m, .poke-hs-q-f  {
+    background-position-x q;
+}
+.poke-hs-j-b, .poke-hs-j-r, .poke-hs-j-m, .poke-hs-j-f  {
+    background-position-x j;
+}
+.poke-hs-10-b, .poke-hs-10-r, .poke-hs-10-m, .poke-hs-10-f  {
+    background-position-x ten;
+}
+.poke-hs-9-b, .poke-hs-9-r, .poke-hs-9-m, .poke-hs-9-f  {
+    background-position-x nine;
+}
+.poke-hs-8-b, .poke-hs-8-r, .poke-hs-8-m, .poke-hs-8-f  {
+    background-position-x eight;
+}
+.poke-hs-7-b, .poke-hs-7-r, .poke-hs-7-m, .poke-hs-7-f  {
+    background-position-x seven;
+}
+.poke-hs-6-b, .poke-hs-6-r, .poke-hs-6-m, .poke-hs-6-f  {
+    background-position-x six;
+}
+.poke-hs-5-b, .poke-hs-5-r, .poke-hs-5-m, .poke-hs-5-f  {
+    background-position-x five;
+}
+.poke-hs-4-b, .poke-hs-4-r, .poke-hs-4-m, .poke-hs-4-f  {
+    background-position-x four;
+}
+.poke-hs-3-b, .poke-hs-3-r, .poke-hs-3-m, .poke-hs-3-f  {
+    background-position-x three;
+}
+.poke-hs-2-b, .poke-hs-2-r, .poke-hs-2-m, .poke-hs-2-f  {
+    background-position-x two;
+}
+

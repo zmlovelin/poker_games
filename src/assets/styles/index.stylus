@@ -5,4 +5,5 @@
 @import "home.stylus"
 @import "game.stylus"
 @import "model.stylus"
+@import "poke.stylus"
 

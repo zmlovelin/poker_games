@@ -6,7 +6,7 @@
         <img class="user-ib user-img" src="../assets/images/user.jpeg" :width="imgWidth" alt="">
         <em class="user-ib user-text user-money" :style="userTextStyle">{{user.score}}</em>
         <div class="user-ib" v-if="user.id === createdBy">房主</div>
-        <div class="user-ib">{{user.prepared ? '准备' : ''}}</div>
+        <div class="user-ib">{{user.prepared ? '已准备' : ''}}</div>
     </div>
 </template>
 
