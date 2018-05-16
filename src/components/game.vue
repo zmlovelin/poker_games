@@ -7,12 +7,11 @@
                  :position="{left: user.left, top: user.top}">
 
         </pk-user>
-        <pk-user v-if="loginUser"
-                 :user="loginUser"
-                 :createdBy="createBy"
-                 :position="{left: loginUser.left, top: loginUser.top}">
-
-        </pk-user>
+        <!--<pk-user v-if="loginUser"-->
+                 <!--:user="loginUser"-->
+                 <!--:createdBy="createBy"-->
+                 <!--:position="{left: loginUser.left, top: loginUser.top}">-->
+        <!--</pk-user>-->
         <button type="button"
                 v-if="loginUser && !loginUser.prepared"
                 style="position: absolute;left: 50%;"
@@ -22,7 +21,6 @@
                      ref="poke"
                      :key="'key' + uin + index"
                      :id="'id' + uin + index"
-                     :value="poke.value"
                      :hs="poke.hs"
                      :num="poke.num"
             >
@@ -30,7 +28,7 @@
             </pk-poke>
         </template>
 
-        <button style="position: absolute;left: 0px;width: 50px;" @click="fp">发牌{{aaaa}}</button>
+        <button style="position: absolute;left: 0px;width: 50px;" @click="fp">发牌{{clientHeight}}</button>
         <button style="position: absolute;left: 270px;width: 50px;" @click="show">翻牌</button>
 
         <div class="game-footer">
@@ -57,9 +55,10 @@
             return {
                 pokes: null,
                 users: [],
+                usersList:[],
                 loginUser: null,
                 timeline: null,
-                aaaa: null,
+                clientHeight: null,
                 createBy: null,
                 roomInfo: null,
                 roomId:this.$route.params.roomId,
@@ -68,51 +67,11 @@
             }
         },
         created() {
-            this.aaaa = document.body.clientHeight;
-            setUserAreaHeight(this.aaaa);
+            this.clientHeight = document.body.clientHeight;
+            setUserAreaHeight(this.clientHeight);
             //获取房间的人员信息
             this.getRooms();
             // 请求数据
-            let values = [], users = [];
-            for (let i = 0; i < 42; i ++) {
-                // values.push(i + 1);
-            }
-            for (let i = 0; i < 9; i++) {
-                let user = {
-                    realname: `name${i}`,
-                    score: Math.floor(Math.random() * 200),
-                    pokes: [],
-                    top: FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * (i % 4)
-                };
-                if (i < 4) {
-                    user.left = USER_PADDING;
-                } else if ( i === 8) {
-                    user.left = USER_PADDING;
-                    user.top = FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT;
-                }else {
-                    user.left = 320 - USER_PADDING - USER_WIDTH;
-                }
-                for (let j = 0; j < 3; j++) {
-                    let poke = {
-                        // value: values.splice(Math.floor(Math.random() * values.length), 1)[0],
-                        translateY: user.top - 200,
-                        hs: ['b', 'r', 'm', 'f'][Math.floor(Math.random() * 4)],
-                        num: ['3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k', 'a'][Math.floor(Math.random() * 12)],
-                    }
-                    if (i < 4) {
-                        poke.translateX = - (145 - USER_PADDING - POKE_TO_USER - USER_WIDTH) + j * POKE_SPACE;
-                    }else if ( i === 8) {
-                        poke.translateY =   USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT - 160;
-                        poke.translateX = - (145 - USER_PADDING - POKE_TO_USER - USER_WIDTH) + j * POKE_SPACE;
-                    } else {
-                        poke.translateX = 320 -USER_PADDING - POKE_TO_USER - USER_WIDTH - 2 * POKE_SPACE - POKE_WIDTH + j * POKE_SPACE - 145;
-                    }
-                    user.pokes.push(poke);
-                }
-                users.push(user);
-            }
-            this.users = users;
-
         },
         destroyed() {
             //退出游戏
@@ -128,6 +87,66 @@
 
         },
         methods: {
+            //数据组装=========
+            createdUserList () {
+                let users = [];
+
+                for (let i = 0; i < this.usersList.length; i++) {
+                    // let user = {
+                    //     realname: `name${i}`,
+                    //     score: Math.floor(Math.random() * 200),
+                    //     pokes: [],
+                    //     top: FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * (i % 4)
+                    // };
+                    let user = this.usersList[i];
+                    user.pokes = [];
+                    user.top = FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * ( (i-1) % 4);
+                    if( i === 0) { //自己永远都是在第一位
+                        user.left = USER_PADDING;
+                        user.top = FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT;
+                    }else if( 0 < i < 4 ) {
+                        user.left = USER_PADDING;
+                    }else {
+                        user.left = 320 - USER_PADDING - USER_WIDTH;
+                    }
+                    //之前的逻辑
+                    // if (i < 4) {
+                    //     user.left = USER_PADDING;
+                    // } else if ( i === 8) {
+                    //     user.left = USER_PADDING;
+                    //     user.top = FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT;
+                    // }else {
+                    //     user.left = 320 - USER_PADDING - USER_WIDTH;
+                    // }
+                    for (let j = 0; j < 3; j++) {
+                        let poke = {
+                            translateY: user.top - 200,
+                            hs: ['b', 'r', 'm', 'f'][Math.floor(Math.random() * 4)],
+                            num: ['3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k', 'a'][Math.floor(Math.random() * 12)],
+                        }
+                        if( i === 0) {
+                            poke.translateY =   USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT - 160;
+                            poke.translateX = - (145 - USER_PADDING - POKE_TO_USER - USER_WIDTH) + j * POKE_SPACE;
+                        }else if( 0 < i < 4 ) {
+                            poke.translateX = - (145 - USER_PADDING - POKE_TO_USER - USER_WIDTH) + j * POKE_SPACE;
+                        }else {
+                            poke.translateX = 320 -USER_PADDING - POKE_TO_USER - USER_WIDTH - 2 * POKE_SPACE - POKE_WIDTH + j * POKE_SPACE - 145;
+                        }
+                        //之前的逻辑
+                        // if (i < 4) {
+                        //     poke.translateX = - (145 - USER_PADDING - POKE_TO_USER - USER_WIDTH) + j * POKE_SPACE;
+                        // }else if ( i === 8) {
+                        //     poke.translateY =   USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT - 160;
+                        //     poke.translateX = - (145 - USER_PADDING - POKE_TO_USER - USER_WIDTH) + j * POKE_SPACE;
+                        // } else {
+                        //     poke.translateX = 320 -USER_PADDING - POKE_TO_USER - USER_WIDTH - 2 * POKE_SPACE - POKE_WIDTH + j * POKE_SPACE - 145;
+                        // }
+                        user.pokes.push(poke);
+                    }
+                    users.push(user);
+                }
+                this.users = users;
+            },
             // 获取房间信息
             getRooms() {
                 let body = {
@@ -141,16 +160,19 @@
                     //自己的信息
                     this.loginUser = res.room.wxinUser;
                     //其他被邀请的玩家的信息
-                    // this.users = res.room.wxinUserList;
+                    this.usersList = res.room.wxinUserList;
+                    this.usersList.unshift(this.loginUser);
                     //设置自己所在的位置
                     this.loginUser.left = USER_PADDING;
                     this.loginUser.top = FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT;
 
-                    if (res.player) {
-                        this.$userService.refreshGameInfo(res).then(result => {
-                            console.log('refreshGameInfo', result);
-                        })
-                    }
+                    this.createdUserList();
+                    // if (res.player) {
+                    //     this.$userService.refreshGameInfo(res).then(result => {
+                    //         console.log('refreshGameInfo', result);
+                    //
+                    //     })
+                    // }
                 });
             },
             fp() {
