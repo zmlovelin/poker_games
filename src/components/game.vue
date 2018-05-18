@@ -14,7 +14,7 @@
         <!--</pk-user>-->
         <button type="button"
                 v-if="loginUser && !loginUser.prepared"
-                style="position: absolute;left: 50%;"
+                class="btnStart"
                 :style="{top: loginUser.top + 'px'}" @click="currentUserPrepare">准&nbsp;备</button>
         <template v-for="(user, uin) in users">
             <pk-poke v-for="(poke, index) in user.pokes"

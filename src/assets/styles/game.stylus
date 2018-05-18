@@ -33,3 +33,14 @@
         }
     }
 }
+
+.btnStart {
+        position: absolute;
+        left: 45%;
+        width: 1.2rem;
+        height: .6rem;
+        border-radius: .2rem;
+        background: #1d4179;
+        color: #bfbfbf;
+        text-shadow: 0 0 1px #ff9800, 0 0 2px #ff5722, 0 0 3px #fd3d00;
+}
