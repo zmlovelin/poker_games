@@ -33,6 +33,9 @@
             },
             num: {
                 type: String
+            },
+            isView: {
+
             }
         },
         computed: {
@@ -64,6 +67,9 @@
             px2rem(px) {
                 return px / 100 * 2 + 'rem';
             }
+        },
+        created() {
+            this.isShow=this.isView
         }
     }
 </script>

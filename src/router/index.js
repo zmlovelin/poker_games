@@ -5,6 +5,7 @@ import account from '../components/account'
 import home from '../components/home'
 import game from '../components/game'
 import roomList from '../components/roomList'
+import demo from '../components/demo'
 
 Vue.use(Router)
 
@@ -24,6 +25,13 @@ export default new Router({
             title: '账号登录'
         },
     },
+      {
+          path: '/demo',
+          component: demo,
+          meta: {
+              title: '账号注册'
+          },
+      },
     {
       path: '/account',
       component: account,

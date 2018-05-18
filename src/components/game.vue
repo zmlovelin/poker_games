@@ -23,6 +23,7 @@
                      :id="'id' + uin + index"
                      :hs="poke.hs"
                      :num="poke.num"
+                     :isView="poke.isView"
             >
 
             </pk-poke>
@@ -90,24 +91,25 @@
             //数据组装=========
             createdUserList () {
                 let users = [];
-
+                console.log('93',this.usersList)
                 for (let i = 0; i < this.usersList.length; i++) {
+
                     // let user = {
                     //     realname: `name${i}`,
                     //     score: Math.floor(Math.random() * 200),
                     //     pokes: [],
                     //     top: FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * (i % 4)
                     // };
-                    let user = this.usersList[i];
-                    user.pokes = [];
-                    user.top = FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * ( (i-1) % 4);
+                    // let user = this.usersList[i];
+                    this.usersList[i].pokes = [];
+                        this.usersList[i].top = FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * ( (i-1) % 4);
                     if( i === 0) { //自己永远都是在第一位
-                        user.left = USER_PADDING;
-                        user.top = FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT;
-                    }else if( 0 < i < 4 ) {
-                        user.left = USER_PADDING;
+                        this.usersList[i].left = USER_PADDING;
+                        this.usersList[i].top = FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT;
+                    }else if(i < 5 ) {
+                        this.usersList[i].left = USER_PADDING;
                     }else {
-                        user.left = 320 - USER_PADDING - USER_WIDTH;
+                        this.usersList[i].left = 320 - USER_PADDING - USER_WIDTH;
                     }
                     //之前的逻辑
                     // if (i < 4) {
@@ -120,14 +122,18 @@
                     // }
                     for (let j = 0; j < 3; j++) {
                         let poke = {
-                            translateY: user.top - 200,
+                            translateY: this.usersList[i].top - 200,
                             hs: ['b', 'r', 'm', 'f'][Math.floor(Math.random() * 4)],
                             num: ['3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k', 'a'][Math.floor(Math.random() * 12)],
+                            isView:null
                         }
                         if( i === 0) {
+                            if(j < 2) {
+                                poke.isView = true
+                            }
                             poke.translateY =   USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT - 160;
                             poke.translateX = - (145 - USER_PADDING - POKE_TO_USER - USER_WIDTH) + j * POKE_SPACE;
-                        }else if( 0 < i < 4 ) {
+                        }else if( i < 5 ) {
                             poke.translateX = - (145 - USER_PADDING - POKE_TO_USER - USER_WIDTH) + j * POKE_SPACE;
                         }else {
                             poke.translateX = 320 -USER_PADDING - POKE_TO_USER - USER_WIDTH - 2 * POKE_SPACE - POKE_WIDTH + j * POKE_SPACE - 145;
@@ -141,9 +147,9 @@
                         // } else {
                         //     poke.translateX = 320 -USER_PADDING - POKE_TO_USER - USER_WIDTH - 2 * POKE_SPACE - POKE_WIDTH + j * POKE_SPACE - 145;
                         // }
-                        user.pokes.push(poke);
+                        this.usersList[i].pokes.push(poke);
                     }
-                    users.push(user);
+                    users.push(this.usersList[i]);
                 }
                 this.users = users;
             },
@@ -159,13 +165,13 @@
                     this.createBy = res.room.createBy;
                     //自己的信息
                     this.loginUser = res.room.wxinUser;
+                    this.loginUser.left = USER_PADDING;
+                    this.loginUser.top = FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT;
                     //其他被邀请的玩家的信息
                     this.usersList = res.room.wxinUserList;
                     this.usersList.unshift(this.loginUser);
+                    console.log('165',this.usersList)
                     //设置自己所在的位置
-                    this.loginUser.left = USER_PADDING;
-                    this.loginUser.top = FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT;
-
                     this.createdUserList();
                     // if (res.player) {
                     //     this.$userService.refreshGameInfo(res).then(result => {
