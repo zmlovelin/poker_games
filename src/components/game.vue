@@ -168,14 +168,14 @@
                 this.$userService.getRoom(body).then(res => {
                     this.dataUser = res;
                     console.log(res);
-                    this.createBy = res.room.createBy;
+                    this.createBy = this.dataUser.room.createBy;
                     //自己的信息
-                    this.loginUser = res.room.wxinUser;
+                    this.loginUser = this.dataUser.room.wxinUser;
                     this.loginUser.left = USER_PADDING;
                     this.loginUser.top = FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT;
                     //其他被邀请的玩家的信息
-                    this.usersList = res.room.wxinUserList;
-                    this.usersList.unshift(res.room.wxinUser);
+                    this.usersList = this.dataUser.room.wxinUserList;
+                    this.usersList.unshift(this.dataUser.room.wxinUser);
                     console.log('165',this.usersList)
                     //设置自己所在的位置
                     this.createdUserList();
@@ -189,6 +189,19 @@
             //轮询接口
             refreshGame(data) {
                 this.$userService.refreshGameInfo(data).then(res => {
+                    this.dataUser = res;
+                    console.log(res);
+                    this.createBy = this.dataUser.room.createBy;
+                    //自己的信息
+                    this.loginUser = this.dataUser.room.wxinUser;
+                    this.loginUser.left = USER_PADDING;
+                    this.loginUser.top = FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT;
+                    //其他被邀请的玩家的信息
+                    this.usersList = this.dataUser.room.wxinUserList;
+                    this.usersList.unshift(this.dataUser.room.wxinUser);
+                    console.log('165',this.usersList)
+                    //设置自己所在的位置
+                    this.createdUserList();
                     console.log('refreshGameInfo', res);
                     // console.log(res.room.wxinUser.prepared)
                 })
