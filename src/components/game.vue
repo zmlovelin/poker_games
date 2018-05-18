@@ -54,6 +54,8 @@
         },
         data() {
             return {
+                timer:null,
+                dataUser:null,
                 pokes: null,
                 users: [],
                 usersList:[],
@@ -74,7 +76,12 @@
             this.getRooms();
             // 请求数据
         },
-        destroyed() {
+
+        beforeDestroy() {
+            let _self = this;
+            if (_self.timer) {
+                clearInterval(_self.timer);
+            }
             //退出游戏
             let body = {
                 roomId:this.roomId, //房间id
@@ -82,10 +89,8 @@
             }
             this.$userService.SignOut(body).then(res=> {
                 console.log(res)
-            })
-        },
-        computed: {
 
+            })
         },
         methods: {
             //数据组装=========
@@ -161,6 +166,7 @@
                     gameInfoId:this.gameInfoId || null //游戏id
                 }
                 this.$userService.getRoom(body).then(res => {
+                    this.dataUser = res;
                     console.log(res);
                     this.createBy = res.room.createBy;
                     //自己的信息
@@ -169,17 +175,23 @@
                     this.loginUser.top = FIRST_USER_MARGIN_TOP + USER_AREA_HEIGHT * 4 + DRAG_BAR_HEIGHT;
                     //其他被邀请的玩家的信息
                     this.usersList = res.room.wxinUserList;
-                    this.usersList.unshift(this.loginUser);
+                    this.usersList.unshift(res.room.wxinUser);
                     console.log('165',this.usersList)
                     //设置自己所在的位置
                     this.createdUserList();
-                    // if (res.player) {
-                    //     this.$userService.refreshGameInfo(res).then(result => {
-                    //         console.log('refreshGameInfo', result);
-                    //
-                    //     })
-                    // }
+                    if (res.player) {
+                        this.timer = setInterval(() => {
+                            this.refreshGame(this.dataUser);
+                        },1000)
+                    }
                 });
+            },
+            //轮询接口
+            refreshGame(data) {
+                this.$userService.refreshGameInfo(data).then(res => {
+                    console.log('refreshGameInfo', res);
+                    // console.log(res.room.wxinUser.prepared)
+                })
             },
             fp() {
                 if (this.timeline) {
@@ -222,6 +234,8 @@
              */
             currentUserPrepare() {
                 this.loginUser.prepared = true;
+                this.dataUser.room.wxinUser.prepared  =  this.loginUser.prepared;
+                console.log(this.loginUser)
             },
             px2rem(px) {
                 return px / 100 * 2 + 'rem';
